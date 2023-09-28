@@ -7,6 +7,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using DocumentFormat.OpenXml.Bibliography;
+using System.Security.Cryptography.Xml;
 
 namespace phApp
 {
@@ -45,7 +46,8 @@ namespace phApp
         public static int valorLogo = 0;
         public static string listaPrecio = "7";
         public static string ecxellUbicacion = "";
-        public static List<string> listaHabladoresCsv = new List<string>();
+		public static string sucursal = "4";
+		public static List<string> listaHabladoresCsv = new List<string>();
         /*public static string query = @"select ART.ItemCode, ART.ItemName, ART.FirmName, U_DK_GARANTIA, isNull(ART.CodeBars,0), PRE.Price1, PRE.Price2 from
 (select A.ItemCode, A.ItemName,  M.FirmName, A.U_DK_GARANTIA, A.CodeBars from OITM A 
 join OMRC M on A.FirmCode = M.FirmCode
@@ -903,21 +905,43 @@ on ART.ItemCode = PRE.ItemCode";*/
     class AgregarNuevaLista // agregar nueva lista cuadndo sea necesario
     {
         public static string identificadorLista = "";
-        public static string listaSeleccionada(string indice)
+        public static string listaSeleccionada(string indice, string sucursal)
         {
             string i = indice;
             Obtner.IndiceLista = i;
-            string listaDinamica = "SELECT \r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n\t  ,T5.[Marca] Marca\r\n\t  ,T4.[CantidadDiasGarantia] Garantia\r\n\t  ,isNull(T3.[Barra], 0) Codigo_Barra\r\n\t  ,T2.[Precio] PrecioaMostrar\r\n\t  ,0 PrecioTachado\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca] \r\n  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE 'L%' AND T2.Cod_ListaPrecio = '" + indice + "' AND T3.[NumeroUnidades] > 0;";
-            return listaDinamica;
+            //string listaDinamica = "SELECT \r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n\t  ,T5.[Marca] Marca\r\n\t  ,T4.[CantidadDiasGarantia] Garantia\r\n\t  ,isNull(T3.[Barra], 0) Codigo_Barra\r\n\t  ,T2.[Precio] PrecioaMostrar\r\n\t  ,0 PrecioTachado\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca] \r\n  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE 'L%' AND T2.Cod_ListaPrecio = '" + indice + "' AND T3.[NumeroUnidades] > 0;";
+            string listaDinamica = "SELECT TOP (100)\r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n      ,T5.[Marca] Marca\r\n      ,T4.[CantidadDiasGarantia] Garantia\r\n      ,isNull(T3.[Barra], 0) Codigo_Barra\r\n      ,T2.[Precio] PrecioaMostrar\r\n      ,0 PrecioTachado\r\n      ,T6.Inventario\r\n      ,T6.CodigoSucursal\r\n\t  ,T6.Sucursal\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]\r\n  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]\r\n  WHERE T1.[Referencia] LIKE 'L%' AND T2.Cod_ListaPrecio = '" + indice + "' AND T3.[NumeroUnidades] > 0\r\n  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0  AND T6.CodArea = 'EXH-VD'";
+			return listaDinamica;
         }
-        public static string busquedaEnLaLista(string sapCode, string IndiceLista)
+
+        public static string busquedaEnLaLista(string sapCode, string IndiceLista, string sucursal)
         {
-            string queryBusquedaEnLaLista = "SELECT \r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n\t  ,T5.[Marca] Marca\r\n\t  ,T4.[CantidadDiasGarantia] Garantia\r\n\t  ,isNull(T3.[Barra], 0) Codigo_Barra\r\n\t  ,T2.[Precio] PrecioaMostrar\r\n\t  ,0 PrecioTachado\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca] \r\n  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE '" + sapCode + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0;";
+            string queryBusquedaEnLaLista = @"
+                    SELECT DISTINCT TOP (100)
+                       T1.[Referencia] Codigo
+                      ,T1.[Nombre] Nombre
+                      ,T5.[Marca] Marca
+                      ,T4.[CantidadDiasGarantia] Garantia
+                      ,isNull(T3.[Barra], 0) Codigo_Barra
+                      ,T2.[Precio] PrecioaMostrar
+                      ,0 PrecioTachado
+                      ,T6.Inventario
+                      ,T6.CodigoSucursal
+	                  ,T6.Sucursal
+	                  ,T6.CodArea
+                  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 
+                  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]
+                  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]
+                  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
+                  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
+                  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
+                  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] = '" + sapCode + "' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  " +
+                  "AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0 AND T6.CodArea = 'EXH-VD'";
 			return queryBusquedaEnLaLista;
         }
         public static string busquedaEnLaListaNombre(string sapCode, string IndiceLista)
         {
-            string queryBusquedaEnLaLista = "SELECT \r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n\t  ,T5.[Marca] Marca\r\n\t  ,T4.[CantidadDiasGarantia] Garantia\r\n\t  ,isNull(T3.[Barra], 0) Codigo_Barra\r\n\t  ,T2.[Precio] PrecioaMostrar\r\n\t  ,0 PrecioTachado\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca] \r\n  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE 'LB-00000001%' AND T2.Cod_ListaPrecio = '2' AND T3.[NumeroUnidades] > 0;";
+            string queryBusquedaEnLaLista = "SELECT \r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n\t  ,T5.[Marca] Marca\r\n\t  ,T4.[CantidadDiasGarantia] Garantia\r\n\t  ,isNull(T3.[Barra], 0) Codigo_Barra\r\n\t  ,T2.[Precio] PrecioaMostrar\r\n\t  ,0 PrecioTachado\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca] \r\n  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE '" + sapCode + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0;";
 			return queryBusquedaEnLaLista;
         }
     }   

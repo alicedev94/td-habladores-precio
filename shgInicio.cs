@@ -3,6 +3,10 @@
 // AUTHOR-ALICE
 // FECHA-24/08/2022
 
+using phApp.Model;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+
 namespace phApp
 {
     public partial class Form1 : Form
@@ -14,7 +18,10 @@ namespace phApp
 
         bool  shgInicio = false;
 
-        private void Form1_Load(object sender, EventArgs e)
+        // CONEXION A SQL SERVER
+		public SqlConnection conexion_server = new SqlConnection(DefaultConnection.connectionString);
+
+		private void Form1_Load(object sender, EventArgs e)
         {
             label1.Font = new System.Drawing.Font(label1.Font, FontStyle.Bold);
             label2.Font = new System.Drawing.Font(label1.Font, FontStyle.Bold);
@@ -34,7 +41,11 @@ namespace phApp
             comboBox1.Items.Add("B");
             comboBox1.Items.Add("C");
             comboBox2.Items.Add("-SELECCIONE EL TAMAÑO DEL HABLADOR:");
-        }
+			comboBox3.Items.Add("Agencia Valencia");
+			comboBox3.Items.Add("Agencia San Diego");
+			comboBox3.Items.Add("Agencia Vslencia Centro");
+			//conexion_server.Open();
+		}
         
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -77,7 +88,12 @@ namespace phApp
             }
         }
 
-        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+        // COMBOBOX PARA SUCURSAL
+		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+		{
+		}
+
+		private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
         {
             try
             {
@@ -227,7 +243,19 @@ namespace phApp
                         // pida su descuento
                         Obtner.valorLogo = 2;
                     }
-                }
+					if (comboBox3.SelectedItem == "Agencia Valencia")
+					{
+						Obtner.sucursal = "4";
+					}
+					if (comboBox3.SelectedItem == "Agencia San Diego")
+					{
+						Obtner.sucursal = "12";
+					}
+					if (comboBox3.SelectedItem == "Agencia Valencia Centro")
+					{
+						Obtner.sucursal = "13";
+					}
+				}
                 else if (radioButton2.Checked == true)
                 {
                     // Selecion de promociones
@@ -251,7 +279,19 @@ namespace phApp
                         // promo actual
                         Obtner.valorLogo = 3;
                     }
-                }
+					if (comboBox3.SelectedItem == "Agencia Valencia")
+					{
+						Obtner.sucursal = "4";
+					}
+					if (comboBox3.SelectedItem == "Agencia San Diego")
+					{
+						Obtner.sucursal = "12";
+					}
+					if (comboBox3.SelectedItem == "Agencia Valencia Centro")
+					{
+						Obtner.sucursal = "13";
+					}
+				}
 
                 if (radioButton1.Checked || radioButton2.Checked)
                 {
@@ -266,7 +306,6 @@ namespace phApp
                         // Interfaz para habladores grandes
                         shg shg_form = new shg();
                         shg_form.Show();
-
                     }
                 }
                 else
@@ -311,5 +350,9 @@ namespace phApp
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
         }
-    }
+
+		private void label4_Click(object sender, EventArgs e)
+		{
+		}
+	}
 }
