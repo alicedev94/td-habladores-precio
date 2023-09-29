@@ -38,7 +38,8 @@ namespace phApp
         public static bool verde = false;
         public static bool naranja = false;
         public static bool azul = false;
-        public static bool A = false;
+		public static bool magenta = false;
+		public static bool A = false;
         public static bool B = false;
         public static bool C = false;
         public static bool Maturin = false;
@@ -46,7 +47,23 @@ namespace phApp
         public static int valorLogo = 0;
         public static string listaPrecio = "7";
         public static string ecxellUbicacion = "";
-		public static string sucursal = "4";
+		public static string sucursal = "12";
+		public static string almacen = "";
+		public static string almacen1;
+		public static string almacen2;
+		public static string almacen3;
+		public static string almacen4;
+		public static string almacen5;
+		public static string almacen6;
+		public static string almacen7;
+		public static string almacen8;
+		public static string almacen9;
+		public static string almacen10;
+		public static string almacen11;
+		public static string almacen12;
+		public static string almacen13;
+		public static string almacen14;
+
 		public static List<string> listaHabladoresCsv = new List<string>();
         /*public static string query = @"select ART.ItemCode, ART.ItemName, ART.FirmName, U_DK_GARANTIA, isNull(ART.CodeBars,0), PRE.Price1, PRE.Price2 from
 (select A.ItemCode, A.ItemName,  M.FirmName, A.U_DK_GARANTIA, A.CodeBars from OITM A 
@@ -905,16 +922,16 @@ on ART.ItemCode = PRE.ItemCode";*/
     class AgregarNuevaLista // agregar nueva lista cuadndo sea necesario
     {
         public static string identificadorLista = "";
-        public static string listaSeleccionada(string indice, string sucursal)
+        public static string listaSeleccionada(string indice, string sucursal, string almacen)
         {
             string i = indice;
             Obtner.IndiceLista = i;
             //string listaDinamica = "SELECT \r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n\t  ,T5.[Marca] Marca\r\n\t  ,T4.[CantidadDiasGarantia] Garantia\r\n\t  ,isNull(T3.[Barra], 0) Codigo_Barra\r\n\t  ,T2.[Precio] PrecioaMostrar\r\n\t  ,0 PrecioTachado\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca] \r\n  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE 'L%' AND T2.Cod_ListaPrecio = '" + indice + "' AND T3.[NumeroUnidades] > 0;";
-            string listaDinamica = "SELECT TOP (100)\r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n      ,T5.[Marca] Marca\r\n      ,T4.[CantidadDiasGarantia] Garantia\r\n      ,isNull(T3.[Barra], 0) Codigo_Barra\r\n      ,T2.[Precio] PrecioaMostrar\r\n      ,0 PrecioTachado\r\n      ,T6.Inventario\r\n      ,T6.CodigoSucursal\r\n\t  ,T6.Sucursal\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]\r\n  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]\r\n  WHERE T1.[Referencia] LIKE 'L%' AND T2.Cod_ListaPrecio = '" + indice + "' AND T3.[NumeroUnidades] > 0\r\n  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0  AND T6.CodArea = 'EXH-VD'";
+            string listaDinamica = "SELECT TOP (100)\r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n      ,T5.[Marca] Marca\r\n      ,T4.[CantidadDiasGarantia] Garantia\r\n      ,isNull(T3.[Barra], 0) Codigo_Barra\r\n      ,T2.[Precio] PrecioaMostrar\r\n      ,0 PrecioTachado\r\n      ,T6.Inventario\r\n      ,T6.CodigoSucursal\r\n\t  ,T6.Sucursal\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]\r\n  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]\r\n  WHERE T1.[Referencia] LIKE 'L%' AND T2.Cod_ListaPrecio = '" + indice + "' AND T3.[NumeroUnidades] > 0\r\n  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0  AND T6.CodArea = '" + almacen + "'";
 			return listaDinamica;
         }
 
-        public static string busquedaEnLaLista(string sapCode, string IndiceLista, string sucursal)
+        public static string busquedaEnLaLista(string sapCode, string IndiceLista, string sucursal, string almacen, string almacen1, string almacen2, string almacen3, string almacen4, string almacen5, string almacen6, string almacen7, string almacen8, string almacen9, string almacen10, string almacen11, string almacen12, string almacen13, string almacen14)
         {
             string queryBusquedaEnLaLista = @"
                     SELECT DISTINCT TOP (100)
@@ -935,8 +952,7 @@ on ART.ItemCode = PRE.ItemCode";*/
                   INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
                   INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
                   INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
-                  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] = '" + sapCode + "' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  " +
-                  "AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0 AND T6.CodArea = 'EXH-VD'";
+                  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE '" + sapCode + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + almacen + "', '" + almacen1 + "', '" + almacen4 + "', '" + almacen5 + "', '" + almacen6 + "', '" + almacen7 + "', '" + almacen8 + "', '" + almacen9 + "', '" + almacen10 + "', '" + almacen11 + "', '" + almacen12 + "', '" + almacen13 + "', '" + almacen14 + "')";
 			return queryBusquedaEnLaLista;
         }
         public static string busquedaEnLaListaNombre(string sapCode, string IndiceLista)

@@ -72,36 +72,40 @@ namespace phApp
                 if (Obtner.margarita == true)
                 {
                     //Obtner.IndiceLista = "6";
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("1", Obtner.sucursal);
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("1", Obtner.sucursal, Obtner.almacen);
                     //listaPrecio = Obtner.queryMargarita;
                 }
                 else if (Obtner.azul == true)
                 {
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("3", Obtner.sucursal); 
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("3", Obtner.sucursal, Obtner.almacen); 
                 }
                 else if (Obtner.naranja == true)
                 {
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("4", Obtner.sucursal);
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("4", Obtner.sucursal, Obtner.almacen);
                 }
                 else if (Obtner.verde == true)
                 {
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("6", Obtner.sucursal);
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("6", Obtner.sucursal, Obtner.almacen);
                 }
-                else if (Obtner.A == true)
+				else if (Obtner.magenta == true)
+				{
+					listaPrecio = AgregarNuevaLista.listaSeleccionada("7", Obtner.sucursal, Obtner.almacen);
+				}
+				else if (Obtner.A == true)
                 {
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("8", Obtner.sucursal);
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("8", Obtner.sucursal, Obtner.almacen);
                 }
                 else if (Obtner.B == true)
                 {
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("9", Obtner.sucursal);
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("9", Obtner.sucursal, Obtner.almacen);
                 }
                 else if (Obtner.C == true)
                 {
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("10", Obtner.sucursal);
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("10", Obtner.sucursal, Obtner.almacen);
                 }
                 else if (Obtner.Maturin == true)
                 {
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("100", Obtner.sucursal);
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("100", Obtner.sucursal, Obtner.almacen);
                 }
 
                 SqlDataAdapter adapter = new SqlDataAdapter(listaPrecio, conexion_server);
@@ -812,11 +816,11 @@ namespace phApp
 
 					if (Obtner.margarita == true)
 					{
-						textQueryBusqueda = AgregarNuevaLista.busquedaEnLaLista(textBox1.Text, Obtner.IndiceLista, Obtner.sucursal); ;
+						textQueryBusqueda = AgregarNuevaLista.busquedaEnLaLista(textBox1.Text, Obtner.IndiceLista, Obtner.sucursal, Obtner.almacen, Obtner.almacen1, Obtner.almacen2, Obtner.almacen3, Obtner.almacen4, Obtner.almacen5, Obtner.almacen6, Obtner.almacen7, Obtner.almacen8, Obtner.almacen9, Obtner.almacen10, Obtner.almacen11, Obtner.almacen12, Obtner.almacen13, Obtner.almacen14);
 					}
 					else
 					{
-						textQueryBusqueda = AgregarNuevaLista.busquedaEnLaLista(textBox1.Text, Obtner.IndiceLista, Obtner.sucursal);
+						textQueryBusqueda = AgregarNuevaLista.busquedaEnLaLista(textBox1.Text, Obtner.IndiceLista, Obtner.sucursal, Obtner.almacen, Obtner.almacen1, Obtner.almacen2, Obtner.almacen3, Obtner.almacen4, Obtner.almacen5, Obtner.almacen6, Obtner.almacen7, Obtner.almacen8, Obtner.almacen9, Obtner.almacen10, Obtner.almacen11, Obtner.almacen12, Obtner.almacen13, Obtner.almacen14);
 					}
 
 					cmd.CommandText = textQueryBusqueda;

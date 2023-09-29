@@ -37,7 +37,8 @@ namespace phApp
             comboBox1.Items.Add("Naranja");
             comboBox1.Items.Add("Azul");
             comboBox1.Items.Add("Verde");
-            comboBox1.Items.Add("A");
+			comboBox1.Items.Add("Magenta");
+			comboBox1.Items.Add("A");
             comboBox1.Items.Add("B");
             comboBox1.Items.Add("C");
             comboBox2.Items.Add("-SELECCIONE EL TAMAÑO DEL HABLADOR:");
@@ -176,49 +177,83 @@ namespace phApp
                 if (comboBox1.SelectedItem == "Lista Estandar")
                 {
                     Obtner.margarita = false;
-
-                }
+					Obtner.almacen = "EXH";
+					Obtner.almacen1 = "ALM";
+					Obtner.almacen2 = "ALM-CDD";
+					Obtner.almacen3 = "ALMD";
+					Obtner.almacen4 = "EXH";
+					Obtner.almacen4 = "EXHD";
+					Obtner.almacen6 = "MVD";
+					Obtner.almacen7 = "MPT";
+					Obtner.almacen8 = "MHS";
+					Obtner.almacen9 = "MVKAD";
+					Obtner.almacen10 = "MVSAM";
+					Obtner.almacen11 = "MVWH";
+					Obtner.almacen12 = "OB";
+					Obtner.almacen13 = "RCP";
+					Obtner.almacen14 = "SM"; // 13
+				}
                 else if (comboBox1.SelectedItem == "Lista Para Porlamar")
                 {
-               
                     Obtner.margarita = true;
                     Obtner.listaPrecio = "6";
-                }
+					Obtner.almacen = "ALM";
+				}
                 else if (comboBox1.SelectedItem == "Naranja")// query de exibición con detalles
                 {
                     AgregarNuevaLista.identificadorLista = "NJ";
                     Obtner.naranja = true;
-                    Obtner.listaPrecio = "16";
+                    Obtner.almacen = "ALM-NJ";
+					Obtner.almacen1 = "EXH-NJ";
+					Obtner.listaPrecio = "16";
                 }
                 else if (comboBox1.SelectedItem == "Azul")// query de exibición con detalles
                 {
                     AgregarNuevaLista.identificadorLista = "AZ";
                     Obtner.azul = true;
-                    Obtner.listaPrecio = "15";
+					Obtner.almacen = "ALM-AZ";
+					Obtner.almacen1 = "EXH-AZ";
+					Obtner.listaPrecio = "15";
                 }
                 else if (comboBox1.SelectedItem == "Verde")// query de exibición con detalles
                 {
                     AgregarNuevaLista.identificadorLista = "VD";
                     Obtner.verde = true;
                     Obtner.listaPrecio = "14";
-                }
-                else if (comboBox1.SelectedItem == "A")// query de exibición con detalles
+                    Obtner.almacen = "EXH-VD";
+					Obtner.almacen1 = "ALM-VD";
+				}
+				else if (comboBox1.SelectedItem == "Magenta")// query de exibición con detalles
+				{
+					AgregarNuevaLista.identificadorLista = "MG";
+					Obtner.magenta = true;
+					Obtner.listaPrecio = "7";
+					Obtner.almacen = "EXH-MG";
+					Obtner.almacen1 = "ALM-MG";
+				}
+				else if (comboBox1.SelectedItem == "A")// query de exibición con detalles
                 {
                     AgregarNuevaLista.identificadorLista = "A";
                     Obtner.A = true;
-                    Obtner.listaPrecio = "18";
+                    Obtner.almacen = "ALM-GD-A";
+					Obtner.almacen1 = "GD-A";
+					Obtner.listaPrecio = "18";
                 }
                 else if (comboBox1.SelectedItem == "B")// query de exibición con detalles
                 {
                     AgregarNuevaLista.identificadorLista = "B";
                     Obtner.B = true;
-                    Obtner.listaPrecio = "19";
+					Obtner.almacen = "ALM-GD-B";
+					Obtner.almacen1 = "GD-B";
+					Obtner.listaPrecio = "19";
                 }
                 else if (comboBox1.SelectedItem == "C")// query de exibición con detalles
                 {
                     AgregarNuevaLista.identificadorLista = "C";
                     Obtner.C = true;
-                    Obtner.listaPrecio = "20";
+					Obtner.almacen = "ALM-GD-C";
+					Obtner.almacen1 = "GD-C";
+					Obtner.listaPrecio = "20";
                 }
                 else if (comboBox1.SelectedItem == "Lista para Maturin")// query de exibición con detalles
                 {
