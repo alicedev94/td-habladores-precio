@@ -29,8 +29,9 @@ namespace phApp
 
             radioButton1.Checked = false;
             radioButton2.Checked = false;
+			radioButton3.Checked = false;
 
-            button1.Enabled = false;
+			button1.Enabled = false;
             comboBox1.Items.Add("Lista Estandar");
             comboBox1.Items.Add("Lista Para Porlamar");
             comboBox1.Items.Add("Lista para Maturin");
@@ -44,7 +45,36 @@ namespace phApp
             comboBox2.Items.Add("-SELECCIONE EL TAMAÑO DEL HABLADOR:");
 			comboBox3.Items.Add("Agencia Valencia");
 			comboBox3.Items.Add("Agencia San Diego");
-			comboBox3.Items.Add("Agencia Vslencia Centro");
+			comboBox3.Items.Add("Agencia Valencia Centro");
+			// ESTRUCTURA COMBO
+			comboBox3.Items.Add("Sucursal Lechería");
+			comboBox3.Items.Add("Sucursal Puerto Ordaz");
+			comboBox3.Items.Add("Sucursal El Paraiso");
+			comboBox3.Items.Add("Sucursal Chacao");
+			comboBox3.Items.Add("Sucursal Maracaibo");
+			comboBox3.Items.Add("Agencia Puerto Cabello");
+			comboBox3.Items.Add("Sucursal La Trinidad");
+			comboBox3.Items.Add("Sucursal Candelaria");
+			comboBox3.Items.Add("Sucursal Puerto Ordaz II");
+			comboBox3.Items.Add("Sucursal El Recreo");
+			comboBox3.Items.Add("Sucursal Acarigua-Araure");
+			comboBox3.Items.Add("Sucursal Valle La Pascua");
+			comboBox3.Items.Add("Sucursal Maturin");
+			comboBox3.Items.Add("Sucursal El Tigre");
+			comboBox3.Items.Add("Agencia Guacara");
+			comboBox3.Items.Add("Sucursal Porlamar");
+			comboBox3.Items.Add("Sucursal Punto Fijo");
+			comboBox3.Items.Add("Sucursal Barquisimeto Centro");
+			comboBox3.Items.Add("Sucursal Maracay Centro");
+			comboBox3.Items.Add("Sucursal San Felipe");
+			comboBox3.Items.Add("Sucursal San Cristobal");
+			comboBox3.Items.Add("Sucursal Valera");
+			comboBox3.Items.Add("Sucursal Puerto La Cruz Centro");
+			comboBox3.Items.Add("Sucursal La Guaira");
+			comboBox3.Items.Add("Sucursal Bello Monte");
+			comboBox3.Items.Add("Sucursal Boleita");
+			comboBox3.Items.Add("Sucursal Maracay");
+			comboBox3.Items.Add("Sucursal Carrizal");
 			//conexion_server.Open();
 		}
         
@@ -87,7 +117,11 @@ namespace phApp
             {
                 button1.Enabled = true;
             }
-        }
+			else if (comboBox1.SelectedIndex == 9)
+			{
+				button1.Enabled = true;
+			}
+		}
 
         // COMBOBOX PARA SUCURSAL
 		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -326,9 +360,164 @@ namespace phApp
 					{
 						Obtner.sucursal = "13";
 					}
+					// ESTRUCTURA IF
+					// 10
+					if (comboBox3.SelectedItem == "Sucursal Lechería")
+					{
+						Obtner.sucursal = "10";
+					}
+					// 11
+					if (comboBox3.SelectedItem == "Sucursal Puerto Ordaz")
+					{
+						Obtner.sucursal = "11";
+					}
+					// 14
+					if (comboBox3.SelectedItem == "Sucursal El Paraiso")
+					{
+						Obtner.sucursal = "14";
+					}
+					// 15
+					if (comboBox3.SelectedItem == "Sucursal Chacao")
+					{
+						Obtner.sucursal = "15";
+					}
+					// 16
+					if (comboBox3.SelectedItem == "Sucursal Maracaibo")
+					{
+						Obtner.sucursal = "16";
+					}
+					// 17
+					if (comboBox3.SelectedItem == "Agencia Puerto Cabello")
+					{
+						Obtner.sucursal = "17";
+					}
+					// 18
+					if (comboBox3.SelectedItem == "Sucursal La Trinidad")
+					{
+						Obtner.sucursal = "18";
+					}
+					// 19
+					if (comboBox3.SelectedItem == "Sucursal Candelaria")
+					{
+						Obtner.sucursal = "19";
+					}
+					// 21
+					if (comboBox3.SelectedItem == "Sucursal Puerto Ordaz II")
+					{
+						Obtner.sucursal = "21";
+					}
+					// 22
+					if (comboBox3.SelectedItem == "Sucursal El Recreo")
+					{
+						Obtner.sucursal = "22";
+					}
+					// 23
+					if (comboBox3.SelectedItem == "Sucursal Acarigua-Araure")
+					{
+						Obtner.sucursal = "23";
+					}
+					// 24
+					if (comboBox3.SelectedItem == "Sucursal Valle La Pascua")
+					{
+						Obtner.sucursal = "24";
+					}
+					// 25
+					if (comboBox3.SelectedItem == "Sucursal Maturin")
+					{
+						Obtner.sucursal = "25";
+					}
+					// 26
+					if (comboBox3.SelectedItem == "Sucursal El Tigre")
+					{
+						Obtner.sucursal = "26";
+					}
+					// 27
+					if (comboBox3.SelectedItem == "Agencia Guacara")
+					{
+						Obtner.sucursal = "27";
+					}
+					// 29
+					if (comboBox3.SelectedItem == "Sucursal Porlamar")
+					{
+						Obtner.sucursal = "29";
+					}
+					// 3
+					if (comboBox3.SelectedItem == "Sucursal Punto Fijo")
+					{
+						Obtner.sucursal = "3";
+					}
+					// 30
+					if (comboBox3.SelectedItem == "Sucursal Barquisimeto Centro")
+					{
+						Obtner.sucursal = "30";
+					}
+					// 31
+					if (comboBox3.SelectedItem == "Sucursal Maracay Centro")
+					{
+						Obtner.sucursal = "31";
+					}
+					// 32
+					if (comboBox3.SelectedItem == "Sucursal San Felipe")
+					{
+						Obtner.sucursal = "32";
+					}
+					// 33
+					if (comboBox3.SelectedItem == "Sucursal San Cristobal")
+					{
+						Obtner.sucursal = "33";
+					}
+					// 34
+					if (comboBox3.SelectedItem == "Sucursal Valera")
+					{
+						Obtner.sucursal = "34";
+					}
+					// 35
+					if (comboBox3.SelectedItem == "Sucursal Puerto La Cruz Centro")
+					{
+						Obtner.sucursal = "35";
+					}
+					// 36
+					comboBox3.Items.Add("Sucursal Cabimas");
+					if (comboBox3.SelectedItem == "Sucursal Cabimas")
+					{
+						Obtner.sucursal = "36";
+					}
+					// 37
+					if (comboBox3.SelectedItem == "Sucursal La Guaira")
+					{
+						Obtner.sucursal = "37";
+					}
+					// 5
+					if (comboBox3.SelectedItem == "Sucursal Bello Monte")
+					{
+						Obtner.sucursal = "5";
+					}
+					// 6
+					if (comboBox3.SelectedItem == "Sucursal Boleita")
+					{
+						Obtner.sucursal = "6";
+					}
+					// 7
+					comboBox3.Items.Add("Sucursal Barquisimeto");
+					if (comboBox3.SelectedItem == "Sucursal Barquisimeto")
+					{
+						Obtner.sucursal = "7";
+					}
+					// 8
+					if (comboBox3.SelectedItem == "Sucursal Maracay")
+					{
+						Obtner.sucursal = "8";
+					}
+					// 9
+					if (comboBox3.SelectedItem == "Sucursal Carrizal")
+					{
+						Obtner.sucursal = "9";
+					}
+
+
 				}
 
-                if (radioButton1.Checked || radioButton2.Checked)
+                if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked)
                 {
                     if (radioButton1.Checked)
                     {
@@ -341,7 +530,14 @@ namespace phApp
                         // Interfaz para habladores grandes
                         shg shg_form = new shg();
                         shg_form.Show();
-                    }
+
+                    }else if (radioButton3.Checked)
+					{
+						// Interfaz para habladores grandes
+						shg shg_form = new shg();
+						shg_form.Show();
+						Obtner.estandar = true;
+					}
                 }
                 else
                 {
@@ -387,6 +583,10 @@ namespace phApp
         }
 
 		private void label4_Click(object sender, EventArgs e)
+		{
+		}
+
+		private void radioButton3_CheckedChanged(object sender, EventArgs e)
 		{
 		}
 	}

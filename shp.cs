@@ -61,10 +61,11 @@ namespace phApp
 
             try
             {
-                string listaPrecio = Obtner.query;
+                string listaPrecio = Obtner.queryp;
                 Obtner.IndiceLista = "2";
+				Obtner.hablador = "P";
 
-                if (Obtner.margarita == true)
+				if (Obtner.margarita == true)
                 {
 					listaPrecio = AgregarNuevaLista.listaSeleccionada("1", Obtner.sucursal, Obtner.almacen);
 					//Obtner.IndiceLista = "6";
@@ -856,20 +857,41 @@ namespace phApp
             void consulta(string codigoSap, string IndiceLista)
             {
 				/*--Var--*/
-				string query = @"SELECT 
-                       T1.[Referencia] ItemCode
-                      ,T1.[Nombre] ItemName
-	                  ,T5.[Marca] FirmName
-	                  ,T4.[CantidadDiasGarantia] U_DK_GARANTIA
-	                  ,isNull(T3.[Barra], 0) CodeBar
-	                  ,T2.[Precio] Price1
-	                  ,0 Price2
-                  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 
-                  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]
-                  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]
-                  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
-                  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca] 
-                  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE '" + codigoSap + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0";
+				//string query = @"SELECT 
+				//                   T1.[Referencia] ItemCode
+				//                  ,T1.[Nombre] ItemName
+				//               ,T5.[Marca] FirmName
+				//               ,T4.[CantidadDiasGarantia] U_DK_GARANTIA
+				//               ,isNull(T3.[Barra], 0) CodeBar
+				//               ,T2.[Precio] Price1
+				//               ,0 Price2
+				//              FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 
+				//              INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]
+				//              INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]
+				//              INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
+				//              INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca] 
+				//              WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE '" + codigoSap + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0";
+
+				string query = @"
+                    SELECT DISTINCT TOP (100)
+                       T1.[Referencia] Codigo
+                      ,T1.[Nombre] Nombre
+                      ,T5.[Marca] Marca
+                      ,T4.[CantidadDiasGarantia] Garantia
+                      ,isNull(T3.[Barra], 0) Codigo_Barra
+                      ,T2.[Precio] PrecioaMostrar
+                      ,0 PrecioTachado
+                      --,T6.Inventario
+                      --,T6.CodigoSucursal
+	                  --,T6.Sucursal
+	                  --,T6.CodArea
+                  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 
+                  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]
+                  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]
+                  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
+                  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
+                  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
+                  WHERE (T1.[Referencia] NOT LIKE 'LB%' AND  T1.[Referencia] NOT LIKE 'LM%'  AND  T1.[Referencia] NOT LIKE 'LJ%') AND T1.[Referencia] LIKE '" + codigoSap + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '" + Obtner.sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + Obtner.almacen + "', '" + Obtner.almacen1 + "', '" + Obtner.almacen2 + "', '" + Obtner.almacen3 + "', '" + Obtner.almacen4 + "', '" + Obtner.almacen5 + "', '" + Obtner.almacen6 + "', '" + Obtner.almacen7 + "', '" + Obtner.almacen8 + "', '" + Obtner.almacen9 + "', '" + Obtner.almacen10 + "', '" + Obtner.almacen11 + "', '" + Obtner.almacen12 + "', '" + Obtner.almacen13 + "', '" + Obtner.almacen14 + "')";
 
 				/*--Realizara la consulta por cada articulo--*/
 				SqlConnection conn = new SqlConnection(DefaultConnection.connectionString);

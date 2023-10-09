@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.radioButton3 = new System.Windows.Forms.RadioButton();
 			this.radioButton2 = new System.Windows.Forms.RadioButton();
 			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.button1 = new System.Windows.Forms.Button();
@@ -48,6 +49,7 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.radioButton3);
 			this.groupBox1.Controls.Add(this.radioButton2);
 			this.groupBox1.Controls.Add(this.radioButton1);
 			this.groupBox1.Location = new System.Drawing.Point(163, 37);
@@ -60,10 +62,23 @@
 			this.groupBox1.Text = "Tamaños";
 			this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
 			// 
+			// radioButton3
+			// 
+			this.radioButton3.AutoSize = true;
+			this.radioButton3.Location = new System.Drawing.Point(8, 67);
+			this.radioButton3.Margin = new System.Windows.Forms.Padding(2);
+			this.radioButton3.Name = "radioButton3";
+			this.radioButton3.Size = new System.Drawing.Size(122, 19);
+			this.radioButton3.TabIndex = 12;
+			this.radioButton3.TabStop = true;
+			this.radioButton3.Text = "Hablador Estandar";
+			this.radioButton3.UseVisualStyleBackColor = true;
+			this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+			// 
 			// radioButton2
 			// 
 			this.radioButton2.AutoSize = true;
-			this.radioButton2.Location = new System.Drawing.Point(8, 59);
+			this.radioButton2.Location = new System.Drawing.Point(8, 44);
 			this.radioButton2.Margin = new System.Windows.Forms.Padding(2);
 			this.radioButton2.Name = "radioButton2";
 			this.radioButton2.Size = new System.Drawing.Size(131, 19);
@@ -76,7 +91,7 @@
 			// radioButton1
 			// 
 			this.radioButton1.AutoSize = true;
-			this.radioButton1.Location = new System.Drawing.Point(8, 32);
+			this.radioButton1.Location = new System.Drawing.Point(8, 21);
 			this.radioButton1.Margin = new System.Windows.Forms.Padding(2);
 			this.radioButton1.Name = "radioButton1";
 			this.radioButton1.Size = new System.Drawing.Size(140, 19);
@@ -257,5 +272,6 @@
         private Button button2;
 		private ComboBox comboBox3;
 		private Label label4;
+		private RadioButton radioButton3;
 	}
 }
