@@ -30,7 +30,8 @@ namespace phApp
         public string FirtsName { get; set; }
         public string price1 { get; set; }
         public string lista4 { get; set; }
-    }
+		public string garantia { get; set; }
+	}
 
     public class Obtner
     {
@@ -46,9 +47,9 @@ namespace phApp
         public static bool Maturin = false;
         public static bool conectionServer = false;
         public static int valorLogo = 0;
-        public static string listaPrecio = "7";
+        public static string listaPrecio = "";
         public static string ecxellUbicacion = "";
-		public static string sucursal = "12";
+		public static string sucursal = "";
 		public static string almacen = "";
 		public static string almacen1;
 		public static string almacen2;
@@ -934,7 +935,7 @@ on ART.ItemCode = PRE.ItemCode";*/
 
             if (Obtner.estandar)
             {
-                listaDinamica = "SELECT TOP (100)\r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n      ,T5.[Marca] Marca\r\n      ,T4.[CantidadDiasGarantia] Garantia\r\n      ,isNull(T3.[Barra], 0) Codigo_Barra\r\n      ,T2.[Precio] PrecioaMostrar\r\n      ,0 PrecioTachado\r\n      ,T6.Inventario\r\n      ,T6.CodigoSucursal\r\n\t  ,T6.Sucursal\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]\r\n  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]\r\n  WHERE LIKE 'L%' AND T2.Cod_ListaPrecio = '" + indice + "' AND T3.[NumeroUnidades] > 0\r\n  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0  AND T6.CodArea = '" + almacen + "'";
+                listaDinamica = "SELECT TOP (100)\r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n      ,T5.[Marca] Marca\r\n      ,T4.[CantidadDiasGarantia] Garantia\r\n      ,isNull(T3.[Barra], 0) Codigo_Barra\r\n      ,T2.[Precio] PrecioaMostrar\r\n      ,0 PrecioTachado\r\n      ,T6.Inventario\r\n      ,T6.CodigoSucursal\r\n\t  ,T6.Sucursal\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]\r\n  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]\r\n  WHERE T1.[Referencia] LIKE 'L%' AND T2.Cod_ListaPrecio = '" + indice + "'  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0  AND T6.CodArea = '" + almacen + "'";
             } else
             {
 				if (Obtner.hablador == "G")
@@ -975,7 +976,7 @@ on ART.ItemCode = PRE.ItemCode";*/
                   INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
                   INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
                   INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
-                  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE '" + sapCode + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + almacen + "', '" + almacen1 + "', '" + almacen2 + "', '" + almacen3 + "', '" + almacen4 + "', '" + almacen5 + "', '" + almacen6 + "', '" + almacen7 + "', '" + almacen8 + "', '" + almacen9 + "', '" + almacen10 + "', '" + almacen11 + "', '" + almacen12 + "', '" + almacen13 + "', '" + almacen14 + "')";
+                  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE '%" + sapCode + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '"+sucursal+"' AND T6.Inventario > 0 AND T6.CodArea IN ('" + almacen + "', '" + almacen1 + "', '" + almacen2 + "', '" + almacen3 + "', '" + almacen4 + "', '" + almacen5 + "', '" + almacen6 + "', '" + almacen7 + "', '" + almacen8 + "', '" + almacen9 + "', '" + almacen10 + "', '" + almacen11 + "', '" + almacen12 + "', '" + almacen13 + "', '" + almacen14 + "')";
 			} else
             {
 				if (Obtner.hablador == "G")
@@ -999,7 +1000,7 @@ on ART.ItemCode = PRE.ItemCode";*/
                   INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
                   INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
                   INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
-                  WHERE (T1.[Referencia] LIKE 'LB%' OR  T1.[Referencia] LIKE 'LM%'  OR  T1.[Referencia] LIKE 'LJ%') AND T1.[Referencia] LIKE '" + sapCode + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + almacen + "', '" + almacen1 + "', '" + almacen2 + "', '" + almacen3 + "', '" + almacen4 + "', '" + almacen5 + "', '" + almacen6 + "', '" + almacen7 + "', '" + almacen8 + "', '" + almacen9 + "', '" + almacen10 + "', '" + almacen11 + "', '" + almacen12 + "', '" + almacen13 + "', '" + almacen14 + "')";
+                  WHERE (T1.[Referencia] LIKE 'LB%' OR  T1.[Referencia] LIKE 'LM%'  OR  T1.[Referencia] LIKE 'LJ%') AND T1.[Referencia] LIKE '%" + sapCode + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + almacen + "', '" + almacen1 + "', '" + almacen2 + "', '" + almacen3 + "', '" + almacen4 + "', '" + almacen5 + "', '" + almacen6 + "', '" + almacen7 + "', '" + almacen8 + "', '" + almacen9 + "', '" + almacen10 + "', '" + almacen11 + "', '" + almacen12 + "', '" + almacen13 + "', '" + almacen14 + "')";
 				}
 				else if (Obtner.hablador == "P")
 				{
@@ -1022,7 +1023,7 @@ on ART.ItemCode = PRE.ItemCode";*/
                   INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
                   INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
                   INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
-                  WHERE (T1.[Referencia] NOT LIKE 'LB%' AND T1.[Referencia] NOT LIKE 'LM%' AND T1.[Referencia] NOT LIKE 'LJ%') AND T1.[Referencia] LIKE '" + sapCode + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + almacen + "', '" + almacen1 + "', '" + almacen2 + "', '" + almacen3 + "', '" + almacen4 + "', '" + almacen5 + "', '" + almacen6 + "', '" + almacen7 + "', '" + almacen8 + "', '" + almacen9 + "', '" + almacen10 + "', '" + almacen11 + "', '" + almacen12 + "', '" + almacen13 + "', '" + almacen14 + "')";
+                  WHERE (T1.[Referencia] NOT LIKE 'LB%' AND T1.[Referencia] NOT LIKE 'LM%' AND T1.[Referencia] NOT LIKE 'LJ%') AND T1.[Referencia] LIKE '" + sapCode + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + almacen + "', '" + almacen1 + "', '" + almacen2 + "', '" + almacen3 + "', '" + almacen4 + "', '" + almacen5 + "', '" + almacen6 + "', '" + almacen7 + "', '" + almacen8 + "', '" + almacen9 + "', '" + almacen10 + "', '" + almacen11 + "', '" + almacen12 + "', '" + almacen13 + "', '" + almacen14 + "')";
 				}
 			}
 			return queryBusquedaEnLaLista;

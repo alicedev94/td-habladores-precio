@@ -108,10 +108,12 @@ namespace phApp
                 }
                 else if (Obtner.Maturin == true)
                 {
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("100", Obtner.sucursal, Obtner.almacen);
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("11", Obtner.sucursal, Obtner.almacen);
                 }
 
-                SqlDataAdapter adapter = new SqlDataAdapter(listaPrecio, conexion_server);
+				//MessageBox.Show(listaPrecio);
+
+				SqlDataAdapter adapter = new SqlDataAdapter(listaPrecio, conexion_server);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 dataGridView1.DataSource = dt;
@@ -824,6 +826,7 @@ namespace phApp
 					else
 					{
 						textQueryBusqueda = AgregarNuevaLista.busquedaEnLaLista(textBox1.Text, Obtner.IndiceLista, Obtner.sucursal, Obtner.almacen, Obtner.almacen1, Obtner.almacen2, Obtner.almacen3, Obtner.almacen4, Obtner.almacen5, Obtner.almacen6, Obtner.almacen7, Obtner.almacen8, Obtner.almacen9, Obtner.almacen10, Obtner.almacen11, Obtner.almacen12, Obtner.almacen13, Obtner.almacen14);
+                       // MessageBox.Show(textQueryBusqueda);
 					}
 
 					cmd.CommandText = textQueryBusqueda;
@@ -853,12 +856,31 @@ namespace phApp
 
 		private void button6_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+			Obtner.valorLogo = 0;
+			Obtner.margarita = false;
+			Obtner.naranja = false;
+			Obtner.azul = false;
+			Obtner.magenta = false;
+			Obtner.A = false;
+			Obtner.B = false;
+			Obtner.C = false;
+			Obtner.Maturin = false;
+			this.Dispose();
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //MessageBox.Show("llegamos aqui wi");
+            Obtner.valorLogo = 0;
+			Obtner.margarita = false;
+			Obtner.naranja = false;
+			Obtner.azul = false;
+			Obtner.magenta = false;
+			Obtner.A = false;
+			Obtner.B = false;
+			Obtner.C = false;
+			Obtner.Maturin = false;
+			this.Dispose();
         }
 
         //MouseDowm
@@ -954,7 +976,7 @@ namespace phApp
                   INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
                   INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
                   INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
-                  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE '" + codigoSap + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '" + Obtner.sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + Obtner.almacen + "', '" + Obtner.almacen1 + "', '" + Obtner.almacen2 + "', '" + Obtner.almacen3 + "', '" + Obtner.almacen4 + "', '" + Obtner.almacen5 + "', '" + Obtner.almacen6 + "', '" + Obtner.almacen7 + "', '" + Obtner.almacen8 + "', '" + Obtner.almacen9 + "', '" + Obtner.almacen10 + "', '" + Obtner.almacen11 + "', '" + Obtner.almacen12 + "', '" + Obtner.almacen13 + "', '" + Obtner.almacen14 + "')";
+                  WHERE T1.[Referencia] LIKE 'L%' AND T1.[Referencia] LIKE '%" + codigoSap + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '" + Obtner.sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + Obtner.almacen + "', '" + Obtner.almacen1 + "', '" + Obtner.almacen2 + "', '" + Obtner.almacen3 + "', '" + Obtner.almacen4 + "', '" + Obtner.almacen5 + "', '" + Obtner.almacen6 + "', '" + Obtner.almacen7 + "', '" + Obtner.almacen8 + "', '" + Obtner.almacen9 + "', '" + Obtner.almacen10 + "', '" + Obtner.almacen11 + "', '" + Obtner.almacen12 + "', '" + Obtner.almacen13 + "', '" + Obtner.almacen14 + "')";
 				}
 				else
                 {
@@ -977,7 +999,7 @@ namespace phApp
                   INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
                   INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
                   INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
-                  WHERE (T1.[Referencia] LIKE 'LB%' OR  T1.[Referencia] LIKE 'LM%' OR T1.[Referencia] LIKE 'LJ%') AND T1.[Referencia] LIKE '" + codigoSap + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '" + Obtner.sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + Obtner.almacen + "', '" + Obtner.almacen1 + "', '" + Obtner.almacen2 + "', '" + Obtner.almacen3 + "', '" + Obtner.almacen4 + "', '" + Obtner.almacen5 + "', '" + Obtner.almacen6 + "', '" + Obtner.almacen7 + "', '" + Obtner.almacen8 + "', '" + Obtner.almacen9 + "', '" + Obtner.almacen10 + "', '" + Obtner.almacen11 + "', '" + Obtner.almacen12 + "', '" + Obtner.almacen13 + "', '" + Obtner.almacen14 + "')";
+                  WHERE (T1.[Referencia] LIKE 'LB%' OR  T1.[Referencia] LIKE 'LM%' OR T1.[Referencia] LIKE 'LJ%') AND T1.[Referencia] LIKE '%" + codigoSap + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '" + Obtner.sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + Obtner.almacen + "', '" + Obtner.almacen1 + "', '" + Obtner.almacen2 + "', '" + Obtner.almacen3 + "', '" + Obtner.almacen4 + "', '" + Obtner.almacen5 + "', '" + Obtner.almacen6 + "', '" + Obtner.almacen7 + "', '" + Obtner.almacen8 + "', '" + Obtner.almacen9 + "', '" + Obtner.almacen10 + "', '" + Obtner.almacen11 + "', '" + Obtner.almacen12 + "', '" + Obtner.almacen13 + "', '" + Obtner.almacen14 + "')";
 				}
 
 				/*--Realizara la consulta por cada articulo- and A.OnHand > 0-*/

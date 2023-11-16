@@ -17,6 +17,7 @@
         public string price1 { get; set; }
         public string FirstName { get; set; }
         public string lista4 { get; set; }
-     
-    }
+		public string garantia { get; set; }
+
+	}
 }

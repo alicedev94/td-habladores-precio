@@ -34,7 +34,7 @@ namespace phApp
 			button1.Enabled = false;
             comboBox1.Items.Add("Lista Estandar");
             comboBox1.Items.Add("Lista Para Porlamar");
-            comboBox1.Items.Add("Lista para Maturin");
+            comboBox1.Items.Add("Lista Especial");
             comboBox1.Items.Add("Naranja");
             comboBox1.Items.Add("Azul");
             comboBox1.Items.Add("Verde");
@@ -45,17 +45,17 @@ namespace phApp
             comboBox2.Items.Add("-SELECCIONE EL TAMAÑO DEL HABLADOR:");
 			comboBox3.Items.Add("Agencia Valencia");
 			comboBox3.Items.Add("Agencia San Diego");
-			comboBox3.Items.Add("Agencia Valencia Centro");
+			comboBox3.Items.Add("Agencia Centro Valencia");
 			// ESTRUCTURA COMBO
 			comboBox3.Items.Add("Sucursal Lechería");
 			comboBox3.Items.Add("Sucursal Puerto Ordaz");
+			comboBox3.Items.Add("Sucursal Puerto Ordaz II");
 			comboBox3.Items.Add("Sucursal El Paraiso");
 			comboBox3.Items.Add("Sucursal Chacao");
 			comboBox3.Items.Add("Sucursal Maracaibo");
 			comboBox3.Items.Add("Agencia Puerto Cabello");
 			comboBox3.Items.Add("Sucursal La Trinidad");
 			comboBox3.Items.Add("Sucursal Candelaria");
-			comboBox3.Items.Add("Sucursal Puerto Ordaz II");
 			comboBox3.Items.Add("Sucursal El Recreo");
 			comboBox3.Items.Add("Sucursal Acarigua-Araure");
 			comboBox3.Items.Add("Sucursal Valle La Pascua");
@@ -64,7 +64,9 @@ namespace phApp
 			comboBox3.Items.Add("Agencia Guacara");
 			comboBox3.Items.Add("Sucursal Porlamar");
 			comboBox3.Items.Add("Sucursal Punto Fijo");
+			comboBox3.Items.Add("Sucursal Barquisimeto");
 			comboBox3.Items.Add("Sucursal Barquisimeto Centro");
+			comboBox3.Items.Add("Sucursal Maracay");
 			comboBox3.Items.Add("Sucursal Maracay Centro");
 			comboBox3.Items.Add("Sucursal San Felipe");
 			comboBox3.Items.Add("Sucursal San Cristobal");
@@ -73,7 +75,7 @@ namespace phApp
 			comboBox3.Items.Add("Sucursal La Guaira");
 			comboBox3.Items.Add("Sucursal Bello Monte");
 			comboBox3.Items.Add("Sucursal Boleita");
-			comboBox3.Items.Add("Sucursal Maracay");
+			//comboBox3.Items.Add("Sucursal Maracay");
 			comboBox3.Items.Add("Sucursal Carrizal");
 			//conexion_server.Open();
 		}
@@ -162,14 +164,20 @@ namespace phApp
                 comboBox2.Items.Add("Pida su Descuento");
                 comboBox2.Items.Add("Se Feliz .99");
                 comboBox2.Items.Add("Promo Actual");
-            }
-        }
+			}
+			else if (this.radioButton3.Checked == true)
+			{
+				this.comboBox2.Items.Clear();
+				comboBox2.Items.Add("Se Feliz con entero");
+				comboBox2.Items.Add("Pida su Descuento");
+				comboBox2.Items.Add("Se Feliz .99");
+				comboBox2.Items.Add("Promo Actual");
+			}
+		}
 
         private void radioButton2_CheckedChanged_1(object sender, EventArgs e)
         {
             //
-            comboBox2.Items.Add("Se Feliz");
-
             if (this.radioButton1.Checked == true)
             {
                 this.comboBox2.Items.Clear();
@@ -184,8 +192,16 @@ namespace phApp
                 comboBox2.Items.Add("Pida su Descuento");
                 comboBox2.Items.Add("Se Feliz .99");
                 comboBox2.Items.Add("Promo Actual");
-            }
-        }
+			}
+			else if (this.radioButton3.Checked == true)
+			{
+				this.comboBox2.Items.Clear();
+				comboBox2.Items.Add("Se Feliz con entero");
+				comboBox2.Items.Add("Pida su Descuento");
+				comboBox2.Items.Add("Se Feliz .99");
+				comboBox2.Items.Add("Promo Actual");
+			}
+		}
 
         //pass
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -231,7 +247,9 @@ namespace phApp
                 {
                     Obtner.margarita = true;
                     Obtner.listaPrecio = "6";
-					Obtner.almacen = "ALM";
+					Obtner.almacen = "EXH";
+					Obtner.almacen12 = "OB";
+					Obtner.almacen1 = "ALM";
 				}
                 else if (comboBox1.SelectedItem == "Naranja")// query de exibición con detalles
                 {
@@ -239,7 +257,7 @@ namespace phApp
                     Obtner.naranja = true;
                     Obtner.almacen = "ALM-NJ";
 					Obtner.almacen1 = "EXH-NJ";
-					Obtner.listaPrecio = "16";
+					//Obtner.listaPrecio = "16";
                 }
                 else if (comboBox1.SelectedItem == "Azul")// query de exibición con detalles
                 {
@@ -247,13 +265,14 @@ namespace phApp
                     Obtner.azul = true;
 					Obtner.almacen = "ALM-AZ";
 					Obtner.almacen1 = "EXH-AZ";
-					Obtner.listaPrecio = "15";
-                }
-                else if (comboBox1.SelectedItem == "Verde")// query de exibición con detalles
+					Obtner.almacen1 = "RC-RCBLE";
+					//Obtner.listaPrecio = "15";
+				}
+				else if (comboBox1.SelectedItem == "Verde")// query de exibición con detalles
                 {
                     AgregarNuevaLista.identificadorLista = "VD";
                     Obtner.verde = true;
-                    Obtner.listaPrecio = "14";
+                   // Obtner.listaPrecio = "14";
                     Obtner.almacen = "EXH-VD";
 					Obtner.almacen1 = "ALM-VD";
 				}
@@ -261,7 +280,7 @@ namespace phApp
 				{
 					AgregarNuevaLista.identificadorLista = "MG";
 					Obtner.magenta = true;
-					Obtner.listaPrecio = "7";
+					//Obtner.listaPrecio = "7";
 					Obtner.almacen = "EXH-MG";
 					Obtner.almacen1 = "ALM-MG";
 				}
@@ -271,7 +290,7 @@ namespace phApp
                     Obtner.A = true;
                     Obtner.almacen = "ALM-GD-A";
 					Obtner.almacen1 = "GD-A";
-					Obtner.listaPrecio = "18";
+					//Obtner.listaPrecio = "18";
                 }
                 else if (comboBox1.SelectedItem == "B")// query de exibición con detalles
                 {
@@ -279,7 +298,7 @@ namespace phApp
                     Obtner.B = true;
 					Obtner.almacen = "ALM-GD-B";
 					Obtner.almacen1 = "GD-B";
-					Obtner.listaPrecio = "19";
+					//Obtner.listaPrecio = "19";
                 }
                 else if (comboBox1.SelectedItem == "C")// query de exibición con detalles
                 {
@@ -287,13 +306,16 @@ namespace phApp
                     Obtner.C = true;
 					Obtner.almacen = "ALM-GD-C";
 					Obtner.almacen1 = "GD-C";
-					Obtner.listaPrecio = "20";
+					//Obtner.listaPrecio = "20";
                 }
-                else if (comboBox1.SelectedItem == "Lista para Maturin")// query de exibición con detalles
+                else if (comboBox1.SelectedItem == "Lista Especial")// query de exibición con detalles
                 {
                     Obtner.Maturin = true;
-                    Obtner.listaPrecio = "8";
-                }
+                    //Obtner.listaPrecio = "11";
+					Obtner.almacen = "EXH";
+					Obtner.almacen1 = "ALM";
+					Obtner.almacen2 = "OB";				
+				}
 
                 // SELECCIÓN DE HBLADORES GRANDES Y PEQUEÑOS
                 if (radioButton1.Checked == true)
@@ -309,9 +331,9 @@ namespace phApp
                     }
                     if (comboBox2.SelectedItem == "Promo Actual")
                     {
-                        // pida su descuento
-                        Obtner.valorLogo = 2;
-                    }
+						// pida su descuento
+						Obtner.valorLogo = 2;
+					}
 					if (comboBox3.SelectedItem == "Agencia Valencia")
 					{
 						Obtner.sucursal = "4";
@@ -320,48 +342,10 @@ namespace phApp
 					{
 						Obtner.sucursal = "12";
 					}
-					if (comboBox3.SelectedItem == "Agencia Valencia Centro")
+					if (comboBox3.SelectedItem == "Agencia Centro Valencia")
 					{
-						Obtner.sucursal = "13";
+						Obtner.sucursal = "13"; 
 					}
-				}
-                else if (radioButton2.Checked == true)
-                {
-                    // Selecion de promociones
-                    if (comboBox2.SelectedItem == "Se Feliz con entero")
-                    {
-                        Obtner.valorLogo = 0;
-                    }
-                    if (comboBox2.SelectedItem == "Pida su Descuento")
-                    {
-                        // pida su descuento
-                        Obtner.valorLogo = 1;
-                        Obtner.valorBandera = true;
-                    }
-                    if (comboBox2.SelectedItem == "Se Feliz .99")
-                    {
-                        // Se Feliz .99
-                        Obtner.valorLogo = 4;
-                    }
-                    if (comboBox2.SelectedItem == "Promo Actual")
-                    {
-                        // promo actual
-                        Obtner.valorLogo = 3;
-                    }
-					if (comboBox3.SelectedItem == "Agencia Valencia")
-					{
-						Obtner.sucursal = "4";
-					}
-					if (comboBox3.SelectedItem == "Agencia San Diego")
-					{
-						Obtner.sucursal = "12";
-					}
-					if (comboBox3.SelectedItem == "Agencia Valencia Centro")
-					{
-						Obtner.sucursal = "13";
-					}
-					// ESTRUCTURA IF
-					// 10
 					if (comboBox3.SelectedItem == "Sucursal Lechería")
 					{
 						Obtner.sucursal = "10";
@@ -446,10 +430,20 @@ namespace phApp
 					{
 						Obtner.sucursal = "3";
 					}
+					// 7
+					if (comboBox3.SelectedItem == "Sucursal Barquisimeto")
+					{
+						Obtner.sucursal = "7";
+					}
 					// 30
 					if (comboBox3.SelectedItem == "Sucursal Barquisimeto Centro")
 					{
 						Obtner.sucursal = "30";
+					}
+					// 8
+					if (comboBox3.SelectedItem == "Sucursal Maracay")
+					{
+						Obtner.sucursal = "8";
 					}
 					// 31
 					if (comboBox3.SelectedItem == "Sucursal Maracay Centro")
@@ -477,7 +471,6 @@ namespace phApp
 						Obtner.sucursal = "35";
 					}
 					// 36
-					comboBox3.Items.Add("Sucursal Cabimas");
 					if (comboBox3.SelectedItem == "Sucursal Cabimas")
 					{
 						Obtner.sucursal = "36";
@@ -498,7 +491,6 @@ namespace phApp
 						Obtner.sucursal = "6";
 					}
 					// 7
-					comboBox3.Items.Add("Sucursal Barquisimeto");
 					if (comboBox3.SelectedItem == "Sucursal Barquisimeto")
 					{
 						Obtner.sucursal = "7";
@@ -513,11 +505,398 @@ namespace phApp
 					{
 						Obtner.sucursal = "9";
 					}
-
-
 				}
-
-                if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked)
+                else if (radioButton2.Checked == true)
+                {
+                    // Selecion de promociones
+                    if (comboBox2.SelectedItem == "Se Feliz con entero")
+                    {
+                        Obtner.valorLogo = 0;
+                    }
+                    if (comboBox2.SelectedItem == "Pida su Descuento")
+                    {
+                        // pida su descuento
+                        Obtner.valorLogo = 1;
+                        Obtner.valorBandera = true;
+                    }
+                    if (comboBox2.SelectedItem == "Se Feliz .99")
+                    {
+                        // Se Feliz .99
+                        Obtner.valorLogo = 4;
+                    }
+                    if (comboBox2.SelectedItem == "Promo Actual")
+                    {
+                        // promo actual
+                        Obtner.valorLogo = 3;
+                    }
+					if (comboBox3.SelectedItem == "Agencia Valencia")
+					{
+						Obtner.sucursal = "4";
+					}
+					if (comboBox3.SelectedItem == "Agencia San Diego")
+					{
+						Obtner.sucursal = "12";
+					}
+					if (comboBox3.SelectedItem == "Agencia Centro Valencia")
+					{
+						Obtner.sucursal = "13";
+					}
+					if (comboBox3.SelectedItem == "Sucursal Lechería")
+					{
+						Obtner.sucursal = "10";
+					}
+					// 11
+					if (comboBox3.SelectedItem == "Sucursal Puerto Ordaz")
+					{
+						Obtner.sucursal = "11";
+					}
+					// 14
+					if (comboBox3.SelectedItem == "Sucursal El Paraiso")
+					{
+						Obtner.sucursal = "14";
+					}
+					// 15
+					if (comboBox3.SelectedItem == "Sucursal Chacao")
+					{
+						Obtner.sucursal = "15";
+					}
+					// 16
+					if (comboBox3.SelectedItem == "Sucursal Maracaibo")
+					{
+						Obtner.sucursal = "16";
+					}
+					// 17
+					if (comboBox3.SelectedItem == "Agencia Puerto Cabello")
+					{
+						Obtner.sucursal = "17";
+					}
+					// 18
+					if (comboBox3.SelectedItem == "Sucursal La Trinidad")
+					{
+						Obtner.sucursal = "18";
+					}
+					// 19
+					if (comboBox3.SelectedItem == "Sucursal Candelaria")
+					{
+						Obtner.sucursal = "19";
+					}
+					// 21
+					if (comboBox3.SelectedItem == "Sucursal Puerto Ordaz II")
+					{
+						Obtner.sucursal = "21";
+					}
+					// 22
+					if (comboBox3.SelectedItem == "Sucursal El Recreo")
+					{
+						Obtner.sucursal = "22";
+					}
+					// 23
+					if (comboBox3.SelectedItem == "Sucursal Acarigua-Araure")
+					{
+						Obtner.sucursal = "23";
+					}
+					// 24
+					if (comboBox3.SelectedItem == "Sucursal Valle La Pascua")
+					{
+						Obtner.sucursal = "24";
+					}
+					// 25
+					if (comboBox3.SelectedItem == "Sucursal Maturin")
+					{
+						Obtner.sucursal = "25";
+					}
+					// 26
+					if (comboBox3.SelectedItem == "Sucursal El Tigre")
+					{
+						Obtner.sucursal = "26";
+					}
+					// 27
+					if (comboBox3.SelectedItem == "Agencia Guacara")
+					{
+						Obtner.sucursal = "27";
+					}
+					// 29
+					if (comboBox3.SelectedItem == "Sucursal Porlamar")
+					{
+						Obtner.sucursal = "29";
+					}
+					// 3
+					if (comboBox3.SelectedItem == "Sucursal Punto Fijo")
+					{
+						Obtner.sucursal = "3";
+					}
+					// 7
+					if (comboBox3.SelectedItem == "Sucursal Barquisimeto")
+					{
+						Obtner.sucursal = "7";
+					}
+					// 30
+					if (comboBox3.SelectedItem == "Sucursal Barquisimeto Centro")
+					{
+						Obtner.sucursal = "30";
+					}
+					// 8
+					if (comboBox3.SelectedItem == "Sucursal Maracay")
+					{
+						Obtner.sucursal = "8";
+					}
+					// 31
+					if (comboBox3.SelectedItem == "Sucursal Maracay Centro")
+					{
+						Obtner.sucursal = "31";
+					}
+					// 32
+					if (comboBox3.SelectedItem == "Sucursal San Felipe")
+					{
+						Obtner.sucursal = "32";
+					}
+					// 33
+					if (comboBox3.SelectedItem == "Sucursal San Cristobal")
+					{
+						Obtner.sucursal = "33";
+					}
+					// 34
+					if (comboBox3.SelectedItem == "Sucursal Valera")
+					{
+						Obtner.sucursal = "34";
+					}
+					// 35
+					if (comboBox3.SelectedItem == "Sucursal Puerto La Cruz Centro")
+					{
+						Obtner.sucursal = "35";
+					}
+					// 36
+					if (comboBox3.SelectedItem == "Sucursal Cabimas")
+					{
+						Obtner.sucursal = "36";
+					}
+					// 37
+					if (comboBox3.SelectedItem == "Sucursal La Guaira")
+					{
+						Obtner.sucursal = "37";
+					}
+					// 5
+					if (comboBox3.SelectedItem == "Sucursal Bello Monte")
+					{
+						Obtner.sucursal = "5";
+					}
+					// 6
+					if (comboBox3.SelectedItem == "Sucursal Boleita")
+					{
+						Obtner.sucursal = "6";
+					}
+					// 7
+					if (comboBox3.SelectedItem == "Sucursal Barquisimeto")
+					{
+						Obtner.sucursal = "7";
+					}
+					// 8
+					if (comboBox3.SelectedItem == "Sucursal Maracay")
+					{
+						Obtner.sucursal = "8";
+					}
+					// 9
+					if (comboBox3.SelectedItem == "Sucursal Carrizal")
+					{
+						Obtner.sucursal = "9";
+					}
+				}
+				else if (radioButton3.Checked == true)
+				{
+					// Selecion de promociones
+					if (comboBox2.SelectedItem == "Se Feliz con entero")
+					{
+						Obtner.valorLogo = 0;
+					}
+					if (comboBox2.SelectedItem == "Pida su Descuento")
+					{
+						// pida su descuento
+						Obtner.valorLogo = 1;
+						Obtner.valorBandera = true;
+					}
+					if (comboBox2.SelectedItem == "Se Feliz .99")
+					{
+						// Se Feliz .99
+						Obtner.valorLogo = 4;
+					}
+					if (comboBox2.SelectedItem == "Promo Actual")
+					{
+						// promo actual
+						Obtner.valorLogo = 3;
+					}
+					if (comboBox3.SelectedItem == "Agencia Valencia")
+					{
+						Obtner.sucursal = "4";
+					}
+					if (comboBox3.SelectedItem == "Agencia San Diego")
+					{
+						Obtner.sucursal = "12";
+					}
+					if (comboBox3.SelectedItem == "Agencia Centro Valencia")
+					{
+						Obtner.sucursal = "13";
+					}
+					if (comboBox3.SelectedItem == "Sucursal Lechería")
+					{
+						Obtner.sucursal = "10";
+					}
+					// 11
+					if (comboBox3.SelectedItem == "Sucursal Puerto Ordaz")
+					{
+						Obtner.sucursal = "11";
+					}
+					// 14
+					if (comboBox3.SelectedItem == "Sucursal El Paraiso")
+					{
+						Obtner.sucursal = "14";
+					}
+					// 15
+					if (comboBox3.SelectedItem == "Sucursal Chacao")
+					{
+						Obtner.sucursal = "15";
+					}
+					// 16
+					if (comboBox3.SelectedItem == "Sucursal Maracaibo")
+					{
+						Obtner.sucursal = "16";
+					}
+					// 17
+					if (comboBox3.SelectedItem == "Agencia Puerto Cabello")
+					{
+						Obtner.sucursal = "17";
+					}
+					// 18
+					if (comboBox3.SelectedItem == "Sucursal La Trinidad")
+					{
+						Obtner.sucursal = "18";
+					}
+					// 19
+					if (comboBox3.SelectedItem == "Sucursal Candelaria")
+					{
+						Obtner.sucursal = "19";
+					}
+					// 21
+					if (comboBox3.SelectedItem == "Sucursal Puerto Ordaz II")
+					{
+						Obtner.sucursal = "21";
+					}
+					// 22
+					if (comboBox3.SelectedItem == "Sucursal El Recreo")
+					{
+						Obtner.sucursal = "22";
+					}
+					// 23
+					if (comboBox3.SelectedItem == "Sucursal Acarigua-Araure")
+					{
+						Obtner.sucursal = "23";
+					}
+					// 24
+					if (comboBox3.SelectedItem == "Sucursal Valle La Pascua")
+					{
+						Obtner.sucursal = "24";
+					}
+					// 25
+					if (comboBox3.SelectedItem == "Sucursal Maturin")
+					{
+						Obtner.sucursal = "25";
+					}
+					// 26
+					if (comboBox3.SelectedItem == "Sucursal El Tigre")
+					{
+						Obtner.sucursal = "26";
+					}
+					// 27
+					if (comboBox3.SelectedItem == "Agencia Guacara")
+					{
+						Obtner.sucursal = "27";
+					}
+					// 29
+					if (comboBox3.SelectedItem == "Sucursal Porlamar")
+					{
+						Obtner.sucursal = "29";
+					}
+					// 3
+					if (comboBox3.SelectedItem == "Sucursal Punto Fijo")
+					{
+						Obtner.sucursal = "3";
+					}
+					// 7
+					if (comboBox3.SelectedItem == "Sucursal Barquisimeto")
+					{
+						Obtner.sucursal = "7";
+					}
+					// 30
+					if (comboBox3.SelectedItem == "Sucursal Barquisimeto Centro")
+					{
+						Obtner.sucursal = "30";
+					}
+					// 8
+					if (comboBox3.SelectedItem == "Sucursal Maracay")
+					{
+						Obtner.sucursal = "8";
+					}
+					// 31
+					if (comboBox3.SelectedItem == "Sucursal Maracay Centro")
+					{
+						Obtner.sucursal = "31";
+					}
+					// 32
+					if (comboBox3.SelectedItem == "Sucursal San Felipe")
+					{
+						Obtner.sucursal = "32";
+					}
+					// 33
+					if (comboBox3.SelectedItem == "Sucursal San Cristobal")
+					{
+						Obtner.sucursal = "33";
+					}
+					// 34
+					if (comboBox3.SelectedItem == "Sucursal Valera")
+					{
+						Obtner.sucursal = "34";
+					}
+					// 35
+					if (comboBox3.SelectedItem == "Sucursal Puerto La Cruz Centro")
+					{
+						Obtner.sucursal = "35";
+					}
+					// 36
+					if (comboBox3.SelectedItem == "Sucursal Cabimas")
+					{
+						Obtner.sucursal = "36";
+					}
+					// 37
+					if (comboBox3.SelectedItem == "Sucursal La Guaira")
+					{
+						Obtner.sucursal = "37";
+					}
+					// 5
+					if (comboBox3.SelectedItem == "Sucursal Bello Monte")
+					{
+						Obtner.sucursal = "5";
+					}
+					// 6
+					if (comboBox3.SelectedItem == "Sucursal Boleita")
+					{
+						Obtner.sucursal = "6";
+					}
+					// 7
+					if (comboBox3.SelectedItem == "Sucursal Barquisimeto")
+					{
+						Obtner.sucursal = "7";
+					}
+					// 8
+					if (comboBox3.SelectedItem == "Sucursal Maracay")
+					{
+						Obtner.sucursal = "8";
+					}
+					// 9
+					if (comboBox3.SelectedItem == "Sucursal Carrizal")
+					{
+						Obtner.sucursal = "9";
+					}
+				}
+				if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked)
                 {
                     if (radioButton1.Checked)
                     {
@@ -587,6 +966,33 @@ namespace phApp
 		}
 
 		private void radioButton3_CheckedChanged(object sender, EventArgs e)
+		{
+			if (this.radioButton1.Checked == true)
+			{
+				this.comboBox2.Items.Clear();
+				comboBox2.Items.Add("Se Feliz con entero");
+				comboBox2.Items.Add("Se Feliz .99");
+				comboBox2.Items.Add("Promo Actual");
+			}
+			else if (this.radioButton2.Checked == true)
+			{
+				this.comboBox2.Items.Clear();
+				comboBox2.Items.Add("Se Feliz con entero");
+				comboBox2.Items.Add("Pida su Descuento");
+				comboBox2.Items.Add("Se Feliz .99");
+				comboBox2.Items.Add("Promo Actual");
+			}
+			else if (this.radioButton3.Checked == true)
+			{
+				this.comboBox2.Items.Clear();
+				comboBox2.Items.Add("Se Feliz con entero");
+				comboBox2.Items.Add("Pida su Descuento");
+				comboBox2.Items.Add("Se Feliz .99");
+				comboBox2.Items.Add("Promo Actual");
+			}
+		}
+
+		private void panel1_Paint(object sender, PaintEventArgs e)
 		{
 		}
 	}

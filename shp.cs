@@ -73,7 +73,7 @@ namespace phApp
 				}
                 else if (Obtner.azul == true)
                 {
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("6", Obtner.sucursal, Obtner.almacen);
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("3", Obtner.sucursal, Obtner.almacen);
 
                 }
                 else if (Obtner.naranja == true)
@@ -98,8 +98,10 @@ namespace phApp
                 }
                 else if (Obtner.Maturin == true)
                 {
-                    listaPrecio = AgregarNuevaLista.listaSeleccionada("3", Obtner.sucursal, Obtner.almacen);
+                    listaPrecio = AgregarNuevaLista.listaSeleccionada("11", Obtner.sucursal, Obtner.almacen);
                 }
+
+                //MessageBox.Show(listaPrecio);
 
                 SqlDataAdapter adapter = new SqlDataAdapter(listaPrecio, conexion_server);
                 DataTable dt = new DataTable();
@@ -113,7 +115,14 @@ namespace phApp
                 dataGridView1.Columns[4].Visible = false;
                 dataGridView1.Columns[5].Visible = false;
                 dataGridView1.Columns[6].Visible = false;
-                Obtner.conectionServer = true;
+
+				dataGridView2.Columns[1].Width = 580;
+				dataGridView2.Columns[2].Visible = false;
+				dataGridView2.Columns[3].Visible = false;
+				dataGridView2.Columns[4].Visible = false;
+				dataGridView2.Columns[5].Visible = false;
+				dataGridView2.Columns[6].Visible = false;
+				Obtner.conectionServer = true;
             }
             catch (Exception ex)
             {
@@ -139,20 +148,22 @@ namespace phApp
                     dt01.price1 = row.Cells[5].Value.ToString();
                     dt01.FirtsName = row.Cells[2].Value.ToString();
                     dt01.lista4 = row.Cells[6].Value.ToString();
+					//dt01.lista4 = row.Cells[6].Value.ToString();
+					dt01.garantia = row.Cells[3].Value.ToString();
 
-                    lista01.Add(dt01);
+					lista01.Add(dt01);
                 }
             }
 
             // agg al datagrid 2
             foreach (var dato in lista01)
             {
-                dataGridView2.Rows.Add(dato.ItemCode, dato.ItemName, dato.price1, dato.FirtsName, dato.lista4);
+                dataGridView2.Rows.Add(dato.ItemCode, dato.ItemName, dato.price1, dato.FirtsName, dato.lista4, dato.garantia);
             }
             lista01.RemoveAll(lista01.Remove);
         }
 
-        // 2
+        // 2d
         private void button2_Click(object sender, EventArgs e)
         {
             dataGridView1.SelectAll();
@@ -170,15 +181,19 @@ namespace phApp
                     dt01.price1 = row.Cells[5].Value.ToString();
                     dt01.FirtsName = row.Cells[2].Value.ToString();
                     dt01.lista4 = row.Cells[6].Value.ToString();
+					dt01.garantia = row.Cells[3].Value.ToString();
+					//MessageBox.Show(dt01.garantia);
 
-                    lista01.Add(dt01);
+
+					lista01.Add(dt01);
                 }
             }
 
             // agg al datagrid 2
             foreach (var dato in lista01)
             {
-                dataGridView2.Rows.Add(dato.ItemCode, dato.ItemName, dato.price1, dato.FirtsName, dato.lista4);
+                //MessageBox.Show(dato.garantia);
+                dataGridView2.Rows.Add(dato.ItemCode, dato.ItemName, dato.price1, dato.FirtsName, dato.lista4, dato.garantia);
             }
             lista01.RemoveAll(lista01.Remove);
         }
@@ -215,6 +230,7 @@ namespace phApp
             else
             {
                 dataGridView2.SelectAll();
+                //dataGridView2 
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
                     datos01 dt01 = new datos01();
@@ -227,8 +243,10 @@ namespace phApp
                         dt01.price1 = row.Cells[2].Value?.ToString();
                         dt01.FirtsName = row.Cells[3].Value?.ToString();
                         dt01.lista4 = row.Cells[4].Value?.ToString();
+						dt01.garantia = row.Cells[5].Value.ToString();
+                        //MessageBox.Show(dt01.garantia);
 
-                        lista01.Add(dt01);
+						lista01.Add(dt01);
                     }
                 }
 
@@ -526,6 +544,9 @@ namespace phApp
                     }
                     else
                     {
+                        //MessageBox.Show(dato.garantia);
+                        //GARANTIA DE LOS HABLADORES PEQUENOS
+                        ColumnText.ShowTextAligned(writer.DirectContent, Element.ALIGN_CENTER, new Phrase("Tiempo de Garantía " + Math.Round(Convert.ToDecimal(dato.garantia)) + " días", Arial02), x_price1 + 17f, y_itemCode, 0); 
                         //------------------------------------------------------------------ PROMO MARGARITA ------------------------------------------------------------------:
                         if (Obtner.margarita == true)
                         {
@@ -718,6 +739,7 @@ namespace phApp
 					else
 					{
 						textQueryBusqueda = AgregarNuevaLista.busquedaEnLaListaNombre(textBox1.Text, Obtner.IndiceLista);
+                   
 					}
 					cmd.CommandText = textQueryBusqueda;
 					DataTable dt = new DataTable();
@@ -736,11 +758,11 @@ namespace phApp
 
 				// Ocultar columnas
 				dataGridView1.Columns["Nombre"].Width = 400;
-				dataGridView1.Columns["Marca"].Visible = false;
-				dataGridView1.Columns["Garantia"].Visible = false;
-				dataGridView1.Columns["Codigo_Barra"].Visible = false;
-				dataGridView1.Columns["PrecioaMostrar"].Visible = false;
-				dataGridView1.Columns["PrecioTachado"].Visible = false;
+				dataGridView1.Columns["Marca"].Visible = true;
+				dataGridView1.Columns["Garantia"].Visible = true;
+				dataGridView1.Columns["Codigo_Barra"].Visible = true;
+				dataGridView1.Columns["PrecioaMostrar"].Visible = true;
+				dataGridView1.Columns["PrecioTachado"].Visible = true;
 			}
 			else if (comboBox1.SelectedIndex == 1)
 			{
@@ -760,6 +782,7 @@ namespace phApp
 					else
 					{
 						textQueryBusqueda = AgregarNuevaLista.busquedaEnLaLista(textBox1.Text, Obtner.IndiceLista, Obtner.sucursal, Obtner.almacen, Obtner.almacen1, Obtner.almacen2, Obtner.almacen3, Obtner.almacen4, Obtner.almacen5, Obtner.almacen6, Obtner.almacen7, Obtner.almacen8, Obtner.almacen9, Obtner.almacen10, Obtner.almacen11, Obtner.almacen12, Obtner.almacen13, Obtner.almacen14);
+                        //MessageBox.Show(textQueryBusqueda);
 					}
 					cmd.CommandText = textQueryBusqueda;
 					DataTable dt = new DataTable();
@@ -778,11 +801,11 @@ namespace phApp
 
 				// Ocultar columnas
 				dataGridView1.Columns["Nombre"].Width = 400;
-				dataGridView1.Columns["Marca"].Visible = false;
-				dataGridView1.Columns["Garantia"].Visible = false;
-				dataGridView1.Columns["Codigo_Barra"].Visible = false;
-				dataGridView1.Columns["PrecioaMostrar"].Visible = false;
-				dataGridView1.Columns["PrecioTachado"].Visible = false;
+				dataGridView1.Columns["Marca"].Visible = true;
+				dataGridView1.Columns["Garantia"].Visible = true;
+				dataGridView1.Columns["Codigo_Barra"].Visible = true;
+				dataGridView1.Columns["PrecioaMostrar"].Visible = true;
+				dataGridView1.Columns["PrecioTachado"].Visible = true;
 			}
 
 
@@ -790,12 +813,30 @@ namespace phApp
 
 		private void button6_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+			Obtner.valorLogo = 0;
+			Obtner.margarita = false;
+			Obtner.naranja = false;
+			Obtner.azul = false;
+			Obtner.magenta = false;
+			Obtner.A = false;
+			Obtner.B = false;
+			Obtner.C = false;
+			Obtner.Maturin = false;
+			this.Dispose();
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+			Obtner.valorLogo = 0;
+			Obtner.margarita = false;
+			Obtner.naranja = false;
+			Obtner.azul = false;
+			Obtner.magenta = false;
+			Obtner.A = false;
+			Obtner.B = false;
+			Obtner.C = false;
+			Obtner.Maturin = false;
+			this.Dispose();
         }
 
         // MouseDown
@@ -891,9 +932,10 @@ namespace phApp
                   INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
                   INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
                   INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
-                  WHERE (T1.[Referencia] NOT LIKE 'LB%' AND  T1.[Referencia] NOT LIKE 'LM%'  AND  T1.[Referencia] NOT LIKE 'LJ%') AND T1.[Referencia] LIKE '" + codigoSap + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T3.[NumeroUnidades] > 0  AND T6.CodigoSucursal = '" + Obtner.sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + Obtner.almacen + "', '" + Obtner.almacen1 + "', '" + Obtner.almacen2 + "', '" + Obtner.almacen3 + "', '" + Obtner.almacen4 + "', '" + Obtner.almacen5 + "', '" + Obtner.almacen6 + "', '" + Obtner.almacen7 + "', '" + Obtner.almacen8 + "', '" + Obtner.almacen9 + "', '" + Obtner.almacen10 + "', '" + Obtner.almacen11 + "', '" + Obtner.almacen12 + "', '" + Obtner.almacen13 + "', '" + Obtner.almacen14 + "')";
+                  WHERE (T1.[Referencia] NOT LIKE 'LB%' AND  T1.[Referencia] NOT LIKE 'LM%'  AND  T1.[Referencia] NOT LIKE 'LJ%') AND T1.[Referencia] LIKE '" + codigoSap + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "'  AND T6.CodigoSucursal = '" + Obtner.sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + Obtner.almacen + "', '" + Obtner.almacen1 + "', '" + Obtner.almacen2 + "', '" + Obtner.almacen3 + "', '" + Obtner.almacen4 + "', '" + Obtner.almacen5 + "', '" + Obtner.almacen6 + "', '" + Obtner.almacen7 + "', '" + Obtner.almacen8 + "', '" + Obtner.almacen9 + "', '" + Obtner.almacen10 + "', '" + Obtner.almacen11 + "', '" + Obtner.almacen12 + "', '" + Obtner.almacen13 + "', '" + Obtner.almacen14 + "')";
 
-				/*--Realizara la consulta por cada articulo--*/
+                /*--Realizara la consulta por cada articulo--*/
+               // MessageBox.Show(query);
 				SqlConnection conn = new SqlConnection(DefaultConnection.connectionString);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -906,12 +948,13 @@ namespace phApp
                     string price1 = reader[5].ToString();
                     string FirstName = reader[2].ToString();
                     string lista4 = reader[6].ToString();
+					string garantia = reader[4].ToString();
 
-                    List<ArticuloP> articulos01()
+					List<ArticuloP> articulos01()
                     {
                         return new List<ArticuloP>
                         {
-                             new ArticuloP{ItemCode=ItemCode, ItemName=ItemName, price1=price1, FirstName=FirstName, lista4=lista4}
+                             new ArticuloP{ItemCode=ItemCode, ItemName=ItemName, price1=price1, FirstName=FirstName, lista4=lista4, garantia=garantia}
                         };
                     }
 
@@ -923,8 +966,9 @@ namespace phApp
                         dt01.price1 = articulo01.price1;
                         dt01.FirstName = articulo01.FirstName;
                         dt01.lista4 = articulo01.lista4;
+						dt01.garantia = articulo01.garantia;
 
-                        listaEcxell01.Add(dt01);
+						listaEcxell01.Add(dt01);
                     }
                 }
                 reader.Close();
@@ -933,7 +977,7 @@ namespace phApp
 
             foreach (var hablador in listaEcxell01)
             {
-                dataGridView2.Rows.Add(hablador.ItemCode, hablador.ItemName, hablador.price1, hablador.FirstName, hablador.lista4);
+                dataGridView2.Rows.Add(hablador.ItemCode, hablador.ItemName, hablador.price1, hablador.FirstName, hablador.lista4, hablador.garantia);
             }
         }
 
