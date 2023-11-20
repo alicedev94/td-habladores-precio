@@ -296,9 +296,10 @@ namespace phApp
                 // CAMBIO DE LOGO
                 string tipoLogo = "";
                 string tipoPromo = "";
-                int valor = Obtner.valorLogo;
+                int valor = 1 ; //Obtner.valorLogo
 
-                if (valor == 0)
+
+				if (valor == 0)
                 {
                     // Se Feliz con entero
                     tipoLogo = @"\\192.168.21.126\Publico\DevTEC-AL-0001\image\logo\Logo Daka - 1,7x1.5cm.png";
