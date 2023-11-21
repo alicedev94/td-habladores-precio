@@ -21,7 +21,9 @@ namespace phApp
         public string CodeBars { get; set; }
         public string price1 { get; set; }
         public string lista4 { get; set; }
-    }
+
+		public string idPromo { get; set; }
+	}
 
     public class datos01
     {
@@ -935,12 +937,12 @@ on ART.ItemCode = PRE.ItemCode";*/
 
             if (Obtner.estandar)
             {
-                listaDinamica = "SELECT TOP (100)\r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n      ,T5.[Marca] Marca\r\n      ,T4.[CantidadDiasGarantia] Garantia\r\n      ,isNull(T3.[Barra], 0) Codigo_Barra\r\n      ,T2.[Precio] PrecioaMostrar\r\n      ,0 PrecioTachado\r\n      ,T6.Inventario\r\n      ,T6.CodigoSucursal\r\n\t  ,T6.Sucursal\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]\r\n  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]\r\n  WHERE T1.[Referencia] LIKE 'L%' AND T2.Cod_ListaPrecio = '" + indice + "'  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0  AND T6.CodArea = '" + almacen + "'";
+                listaDinamica = "SELECT TOP (100)\r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n      ,T5.[Marca] Marca\r\n      ,T4.[CantidadDiasGarantia] Garantia\r\n      ,isNull(T3.[Barra], 0) Codigo_Barra\r\n      ,T2.[Precio] PrecioaMostrar\r\n      ,0 PrecioTachado\r\n      ,T6.Inventario\r\n      ,T6.CodigoSucursal\r\n\t  ,T6.Sucursal\r\n, 1 as id_prom\r\n,.99 AS nombre_promo  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]\r\n  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]\r\n  WHERE T1.[Referencia] LIKE 'L%' AND T2.Cod_ListaPrecio = '" + indice + "'  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0  AND T6.CodArea = '" + almacen + "'";
             } else
             {
 				if (Obtner.hablador == "G")
 				{
-					listaDinamica = "SELECT TOP (100)\r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n      ,T5.[Marca] Marca\r\n      ,T4.[CantidadDiasGarantia] Garantia\r\n      ,isNull(T3.[Barra], 0) Codigo_Barra\r\n      ,T2.[Precio] PrecioaMostrar\r\n      ,0 PrecioTachado\r\n      ,T6.Inventario\r\n      ,T6.CodigoSucursal\r\n\t  ,T6.Sucursal\r\n  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]\r\n  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]\r\n  WHERE (T1.[Referencia] LIKE 'LB%' OR  T1.[Referencia] LIKE 'LM%' OR T1.[Referencia] LIKE 'LJ%') AND T2.Cod_ListaPrecio = '" + indice + "' AND T3.[NumeroUnidades] > 0\r\n  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0  AND T6.CodArea = '" + almacen + "'";
+					listaDinamica = "SELECT TOP (100)\r\n       T1.[Referencia] Codigo\r\n      ,T1.[Nombre] Nombre\r\n      ,T5.[Marca] Marca\r\n      ,T4.[CantidadDiasGarantia] Garantia\r\n      ,isNull(T3.[Barra], 0) Codigo_Barra\r\n      ,T2.[Precio] PrecioaMostrar\r\n      ,0 PrecioTachado\r\n      ,T6.Inventario\r\n      ,T6.CodigoSucursal\r\n\t  ,T6.Sucursal\r\n ,1 as id_prom\r\n,.99 AS nombre_promo  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 \r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]\r\n  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]\r\n  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]\r\n  WHERE (T1.[Referencia] LIKE 'LB%' OR  T1.[Referencia] LIKE 'LM%' OR T1.[Referencia] LIKE 'LJ%') AND T2.Cod_ListaPrecio = '" + indice + "' AND T3.[NumeroUnidades] > 0\r\n  AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0  AND T6.CodArea = '" + almacen + "'";
 				}
 				else if (Obtner.hablador == "P")
 				{
@@ -994,6 +996,8 @@ on ART.ItemCode = PRE.ItemCode";*/
                       --,T6.CodigoSucursal
 	                  --,T6.Sucursal
 	                  --,T6.CodArea
+,100 as id_prom
+,.99 AS nombre_promo
                   FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 
                   INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]
                   INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]

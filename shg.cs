@@ -111,6 +111,7 @@ namespace phApp
                     listaPrecio = AgregarNuevaLista.listaSeleccionada("11", Obtner.sucursal, Obtner.almacen);
                 }
 
+				// que consulta se esta ejecutando
 				//MessageBox.Show(listaPrecio);
 
 				SqlDataAdapter adapter = new SqlDataAdapter(listaPrecio, conexion_server);
@@ -118,14 +119,27 @@ namespace phApp
                 adapter.Fill(dt);
                 dataGridView1.DataSource = dt;
 
-                // Ocultar columnas al cargar la data inicial
-                dataGridView1.Columns[1].Width = 580;
-                dataGridView1.Columns[2].Visible = false;
-                dataGridView1.Columns[3].Visible = false;
-                dataGridView1.Columns[4].Visible = false;
-                dataGridView1.Columns[5].Visible = false;
-                dataGridView1.Columns[6].Visible = false;
-                Obtner.conectionServer = true;
+
+				// Ocultar columnas al cargar la data inicial
+				dataGridView1.Columns[1].Width = 580;
+                dataGridView1.Columns[2].Visible = true;
+                dataGridView1.Columns[3].Visible = true;
+                dataGridView1.Columns[4].Visible = true;
+                dataGridView1.Columns[5].Visible = true;
+                dataGridView1.Columns[6].Visible = true;
+				dataGridView1.Columns[7].Visible = true;
+				dataGridView1.Columns[0].Visible = true;
+
+				// Nuevos campos del 243
+				dataGridView2.Columns[2].Visible = true;
+				dataGridView2.Columns[3].Visible = true;
+				dataGridView2.Columns[4].Visible = true;
+				dataGridView2.Columns[5].Visible = true;
+				dataGridView2.Columns[6].Visible = true;
+				dataGridView2.Columns[7].Visible = true;
+				dataGridView2.Columns[8].Visible = true;
+
+				Obtner.conectionServer = true;
             }
             catch (Exception ex)
             {
@@ -153,16 +167,32 @@ namespace phApp
                     dt.CodeBars = row.Cells[4].Value.ToString();
                     dt.price1 = row.Cells[5].Value.ToString(); // solucionado
                     dt.lista4 = row.Cells[6].Value.ToString();
+					//NUEVAS COLUMNAS EN SELECCION MANUAL
+					dt.lista4 = row.Cells[6].Value.ToString();
+                    dt.idPromo = row.Cells[7].Value.ToString();
 
-                    lista.Add(dt);
+					lista.Add(dt);
                 }
             }
 
             foreach (var dato in lista)
             {
-                dataGridView2.Rows.Add(dato.ItemCode, dato.ItemName, dato.FirtsName, dato.garantia, dato.CodeBars, dato.price1, dato.lista4);
-            }
-            lista.RemoveAll(lista.Remove);
+				//MessageBox.Show(dato.idPromo);
+				dataGridView2.Rows.Add(dato.ItemCode, dato.ItemName, dato.FirtsName, dato.garantia, dato.CodeBars, dato.price1, dato.lista4, dato.idPromo);
+				//dataGridView2.Rows.Add(dato.idPromo);
+			}
+
+            // MOSTRAR COLUMNAS EN SELECCION MANUAL
+            dataGridView2.Columns[2].Visible= true;
+			dataGridView2.Columns[3].Visible = true;
+			dataGridView2.Columns[4].Visible = true;
+			dataGridView2.Columns[5].Visible = true;
+			dataGridView2.Columns[6].Visible = true;
+			//dataGridView2.Columns[7].Visible = true;
+			//dataGridView2.Columns[8].Visible = true;
+			//dataGridView2.Columns[9].Visible = true;
+
+			lista.RemoveAll(lista.Remove);
         }
 
         // ----------SELECCIÓN AUTOMATICA >>
@@ -244,6 +274,7 @@ namespace phApp
                         dt.CodeBars = row.Cells[4].Value?.ToString();
                         dt.price1 = row.Cells[5].Value?.ToString();
                         dt.lista4 = row.Cells[6].Value?.ToString();
+                        dt.idPromo = row.Cells[7].Value?.ToString();
 
                         lista.Add(dt);
                     }
@@ -296,39 +327,10 @@ namespace phApp
                 // CAMBIO DE LOGO
                 string tipoLogo = "";
                 string tipoPromo = "";
-                int valor = 1 ; //Obtner.valorLogo
 
+                // BLOQUE DE CODIGO DEL
 
-				if (valor == 0)
-                {
-                    // Se Feliz con entero
-                    tipoLogo = @"\\192.168.21.126\Publico\DevTEC-AL-0001\image\logo\Logo Daka - 1,7x1.5cm.png";
-                    tipoPromo = "se feliz";
-                }
-                else if (valor == 1)
-                {
-                    // Pida su Descuento
-                    tipoLogo = @"\\192.168.21.126\Publico\DevTEC-AL-0001\image\logo\Logo Daka - 1,7x1.5cm.png";
-                    tipoPromo = "pida su descuento";
-                }
-                else if (valor == 2)
-                {
-                    // Promo Daka
-                    tipoLogo = @"\\192.168.21.126\Publico\DevTEC-AL-0001\image\logo\Logo Hablador Grande - 2,3x1.2cm.png";
-                    tipoPromo = "promo daka";
-                }
-                else if (valor == 3)
-                {
-                    // Promo Actual
-                    tipoLogo = ruta;
-                    tipoPromo = "promo actual";
-                }
-                else if (valor == 4)
-                {
-                    // Se Feliz con .99
-                    tipoLogo = @"\\192.168.21.126\Publico\DevTEC-AL-0001\image\logo\Logo Daka - 1,7x1.5cm.png";
-                    tipoPromo = "Se Feliz .99";
-                }
+                // TXT TIPO DE PROMO
 
                 // TIPOS DE LETRA Y TAMAÑO
                 iTextSharp.text.Font Arial = FontFactory.GetFont("Arial", 12);
@@ -343,7 +345,7 @@ namespace phApp
                 doc.SetPageSize(iTextSharp.text.PageSize.A4.Rotate());
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(path01 + dtime + @" TI.DAKA-HABLADOR_G_PRUEBAS.pdf", FileMode.Create)); // DIRECIÓN DEL FICHERO PDF
 
-                iTextSharp.text.Image image2 = iTextSharp.text.Image.GetInstance(tipoLogo); // DIRECCIÓN IMAGEN LOGO, ACCEDER SIEMPRE A LA CARPETA IMAGENES
+                //iTextSharp.text.Image image2 = iTextSharp.text.Image.GetInstance(tipoLogo); // DIRECCIÓN IMAGEN LOGO, ACCEDER SIEMPRE A LA CARPETA IMAGENES
                 doc.Open();
 
                 // Para el codigo de barras
@@ -353,7 +355,49 @@ namespace phApp
                 int contBarraProcesos = 0;
                 foreach (var dato in lista) // lista
                 {
-                    if (dato.ItemCode == "LB-00001357")
+					// PROMO
+					if (dato.idPromo == "1,0000")
+					{
+                        MessageBox.Show("PROMO ACTUAL");
+                        // DE ESTE INDICE DEPENDE TODA LA PROMO
+                        Obtner.valorLogo = 3;
+					}
+					int valor = Obtner.valorLogo;
+					if (valor == 0)
+					{
+						// Se Feliz con entero
+						tipoLogo = @"\\192.168.21.126\Publico\DevTEC-AL-0001\image\logo\Logo Daka - 1,7x1.5cm.png";
+						tipoPromo = "se feliz";
+					}
+					else if (valor == 1)
+					{
+						// Pida su Descuento
+						tipoLogo = @"\\192.168.21.126\Publico\DevTEC-AL-0001\image\logo\Logo Daka - 1,7x1.5cm.png";
+						tipoPromo = "pida su descuento";
+					}
+					else if (valor == 2)
+					{
+						// Promo Daka
+						tipoLogo = @"\\192.168.21.126\Publico\DevTEC-AL-0001\image\logo\Logo Hablador Grande - 2,3x1.2cm.png";
+						tipoPromo = "promo daka";
+					}
+					else if (valor == 3)
+					{
+						// Promo Actual
+						tipoLogo = ruta;
+						tipoPromo = "promo actual";
+					}
+					else if (valor == 4)
+					{
+						// Se Feliz con .99
+						tipoLogo = @"\\192.168.21.126\Publico\DevTEC-AL-0001\image\logo\Logo Daka - 1,7x1.5cm.png";
+						tipoPromo = "Se Feliz .99";
+					}
+
+					iTextSharp.text.Image image2 = iTextSharp.text.Image.GetInstance(tipoLogo); // DIRECCIÓN IMAGEN LOGO, ACCEDER SIEMPRE A LA CARPETA IMAGENES
+                    //
+
+					if (dato.ItemCode == "LB-00001357")
                     {
                         dato.ItemName = "MICROONDAS FMDO20S3GSPW FMDO20S3GSPW FRIGIDAIRE";
                     }
@@ -745,8 +789,11 @@ namespace phApp
                     contador++;
                     contBarraProcesos++;
                 }
-                contador = 0;
-                doc.Close();
+
+				// REINICIAR VALORES
+				contador = 0;
+				Obtner.valorLogo = 0;
+				doc.Close();
                 MessageBox.Show("ruta: " + path01);
             }
         }
@@ -804,11 +851,12 @@ namespace phApp
 
 				// Ocultar columnas
 				dataGridView1.Columns["Nombre"].Width = 580;
-				dataGridView1.Columns["Marca"].Visible = false;
-				dataGridView1.Columns["Garantia"].Visible = false;
-				dataGridView1.Columns["Codigo_Barra"].Visible = false;
-				dataGridView1.Columns["PrecioaMostrar"].Visible = false;
-				dataGridView1.Columns["PrecioTachado"].Visible = false;
+				dataGridView1.Columns["Marca"].Visible = true;
+				dataGridView1.Columns["Garantia"].Visible = true;
+				dataGridView1.Columns["Codigo_Barra"].Visible = true;
+				dataGridView1.Columns["PrecioaMostrar"].Visible = true;
+				dataGridView1.Columns["PrecioTachado"].Visible = true;
+                //var a = dataGridView1.Columns["PrecioTachado"].ValueType()
 			}
 			else if (comboBox1.SelectedIndex == 1)
 			{
@@ -845,13 +893,15 @@ namespace phApp
 					conexion_server.Close();
 				}
 
-				// Ocultar columnas
+				// Ocultar columnas al buscar
 				dataGridView1.Columns["Nombre"].Width = 580;
-				dataGridView1.Columns["Marca"].Visible = false;
-				dataGridView1.Columns["Garantia"].Visible = false;
-				dataGridView1.Columns["Codigo_Barra"].Visible = false;
-				dataGridView1.Columns["PrecioaMostrar"].Visible = false;
-				dataGridView1.Columns["PrecioTachado"].Visible = false;
+				dataGridView1.Columns["Marca"].Visible = true;
+				dataGridView1.Columns["Garantia"].Visible = true;
+				dataGridView1.Columns["Codigo_Barra"].Visible = true;
+				dataGridView1.Columns["PrecioaMostrar"].Visible = true;
+				dataGridView1.Columns["PrecioTachado"].Visible = true;
+				dataGridView1.Columns["id_prom"].Visible = true;
+				dataGridView1.Columns["nombre_promo"].Visible = true;
 			}
 		}
 

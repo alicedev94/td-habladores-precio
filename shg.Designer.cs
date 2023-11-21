@@ -52,6 +52,7 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.button7 = new System.Windows.Forms.Button();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.id_promo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
 			this.panel1.SuspendLayout();
@@ -84,8 +85,9 @@
             this.garantia,
             this.code,
             this.price1,
-            this.price2});
-			this.dataGridView2.Location = new System.Drawing.Point(396, 62);
+            this.price2,
+            this.id_promo});
+			this.dataGridView2.Location = new System.Drawing.Point(395, 62);
 			this.dataGridView2.Margin = new System.Windows.Forms.Padding(2);
 			this.dataGridView2.Name = "dataGridView2";
 			this.dataGridView2.ReadOnly = true;
@@ -306,6 +308,12 @@
 			// 
 			this.openFileDialog1.FileName = "openFileDialog1";
 			// 
+			// id_promo
+			// 
+			this.id_promo.HeaderText = "id_promo";
+			this.id_promo.Name = "id_promo";
+			this.id_promo.ReadOnly = true;
+			// 
 			// shg
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -371,5 +379,6 @@
         private DataGridViewTextBoxColumn price2;
         private Button button7;
         private OpenFileDialog openFileDialog1;
-    }
+		private DataGridViewTextBoxColumn id_promo;
+	}
 }
