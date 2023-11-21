@@ -11,6 +11,7 @@ using System.Xml;
 using System.Text;
 using phApp.Model;
 using System.Windows.Forms;
+using DocumentFormat.OpenXml.Drawing.Wordprocessing;
 
 namespace phApp
 {
@@ -128,7 +129,7 @@ namespace phApp
                 dataGridView1.Columns[5].Visible = true;
                 dataGridView1.Columns[6].Visible = true;
 				dataGridView1.Columns[7].Visible = true;
-				dataGridView1.Columns[0].Visible = true;
+				//dataGridView1.Columns[0].Visible = true;
 
 				// Nuevos campos del 243
 				dataGridView2.Columns[2].Visible = true;
@@ -137,7 +138,7 @@ namespace phApp
 				dataGridView2.Columns[5].Visible = true;
 				dataGridView2.Columns[6].Visible = true;
 				dataGridView2.Columns[7].Visible = true;
-				dataGridView2.Columns[8].Visible = true;
+				//dataGridView2.Columns[8].Visible = true;
 
 				Obtner.conectionServer = true;
             }
@@ -358,10 +359,21 @@ namespace phApp
 					// PROMO
 					if (dato.idPromo == "1,0000")
 					{
-                        MessageBox.Show("PROMO ACTUAL");
-                        // DE ESTE INDICE DEPENDE TODA LA PROMO
-                        Obtner.valorLogo = 3;
+						// DE ESTE INDICE DEPENDE TODA LA PROMO
+						//MessageBox.Show("PROMO ACTUAL");
+                        Obtner.valorLogo = 4;
+					} else if(dato.idPromo == "2,000")
+                    {
+						//DE ESTE INDICE DEPENDE TODA LA PROMO
+						//MessageBox.Show("SE FELIZ CON .99");
+						Obtner.valorLogo = 3;
+					} else if (dato.idPromo == "3,000")
+					{
+						//DE ESTE INDICE DEPENDE TODA LA PROMO
+						//MessageBox.Show("SE FELIZ CON ENTERO");
+						Obtner.valorLogo = 0;
 					}
+
 					int valor = Obtner.valorLogo;
 					if (valor == 0)
 					{
