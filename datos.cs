@@ -473,7 +473,6 @@ on ART.ItemCode = PRE.ItemCode";*/
                         }
                         else
                         {
-
                             // Parametrizar (PM) con la regla AlcanceLetra.
                             while (1 == 1)
                             {
@@ -494,7 +493,6 @@ on ART.ItemCode = PRE.ItemCode";*/
                                     PM = sb001.ToString();
                                     PMLIST = PM.Split('}').ToList(); // guardamos en *list* solamnete la posicion 1 alterada
                                                                      //--------------------------------------------------------------------------------------
-
                                     PM = PMLIST[0];
                                     PMFLIST.Insert(0, PMLIST[1] + " ").ToString();
                                 }
@@ -983,28 +981,60 @@ on ART.ItemCode = PRE.ItemCode";*/
             {
 				if (Obtner.hablador == "G")
 				{
-					queryBusquedaEnLaLista = @"
-                    SELECT DISTINCT TOP (100)
-                       T1.[Referencia] Codigo
-                      ,T1.[Nombre] Nombre
-                      ,T5.[Marca] Marca
-                      ,T4.[CantidadDiasGarantia] Garantia
-                      ,isNull(T3.[Barra], 0) Codigo_Barra
-                      ,T2.[Precio] PrecioaMostrar
-                      ,0 PrecioTachado
-                      --,T6.Inventario
-                      --,T6.CodigoSucursal
-	                  --,T6.Sucursal
-	                  --,T6.CodArea
-,100 as id_prom
-,.99 AS nombre_promo
-                  FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1 
-                  INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2 ON T1.Referencia = T2.[Cod_Producto]
-                  INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3 ON  T1.[IdProducto] = T3.[IdProducto]
-                  INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4 ON T1.[Referencia] = T4.[Cod_Producto]
-                  INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5 ON T4.[Cod_Marca] = T5.[Cod_Marca]
-                  INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6 ON T2.[Cod_Producto] = T6.[CodArticulo]
-                  WHERE (T1.[Referencia] LIKE 'LB%' OR  T1.[Referencia] LIKE 'LM%'  OR  T1.[Referencia] LIKE 'LJ%') AND T1.[Referencia] LIKE '%" + sapCode + "%' AND T2.Cod_ListaPrecio = '" + IndiceLista + "' AND T6.CodigoSucursal = '" + sucursal + "' AND T6.Inventario > 0 AND T6.CodArea IN ('" + almacen + "', '" + almacen1 + "', '" + almacen2 + "', '" + almacen3 + "', '" + almacen4 + "', '" + almacen5 + "', '" + almacen6 + "', '" + almacen7 + "', '" + almacen8 + "', '" + almacen9 + "', '" + almacen10 + "', '" + almacen11 + "', '" + almacen12 + "', '" + almacen13 + "', '" + almacen14 + "')";
+					queryBusquedaEnLaLista = @"DECLARE @SAP_CODE VARCHAR(80);
+SET @SAP_CODE = 'LB-00001426'; -- SE FELIZ CON ENTERO LM-00000690 SE FELIZ CON .99 LB-00001426
+
+SELECT DISTINCT TOP (100)
+    T1.[Referencia] Codigo,
+    T1.[Nombre] Nombre,
+    T5.[Marca] Marca,
+    T4.[CantidadDiasGarantia] Garantia,
+    isNull(T3.[Barra], 0) Codigo_Barra,
+    T2.[Precio] PrecioaMostrar,
+    0 PrecioTachado,
+    --T6.Inventario,
+    --T6.CodigoSucursal,
+    --T6.Sucursal,
+    T8.IdHablador 'id_prom',
+    T9.Nombre 'nombre_promo'
+    --T8.FecCrea
+FROM [DB_AWS_MELE].[dbo].[Transaccional.Productos] T1
+    INNER JOIN [DB_AWS_MELE].[dbo].[ListasPrecios] T2
+        ON T1.Referencia = T2.[Cod_Producto]
+    INNER JOIN [DB_AWS_MELE].[dbo].[Transaccional.Empaques] T3
+        ON T1.[IdProducto] = T3.[IdProducto]
+    INNER JOIN [DB_AWS_MELE].[dbo].[ProductosGarantias] T4
+        ON T1.[Referencia] = T4.[Cod_Producto]
+    INNER JOIN [DB_AWS_MELE].[dbo].[Marcas] T5
+        ON T4.[Cod_Marca] = T5.[Cod_Marca]
+    INNER JOIN [TIENDAS_MELE].[dbo].[TM_VW_ExistenciaTiendasMele] T6
+        ON T2.[Cod_Producto] = T6.[CodArticulo]
+    INNER JOIN [CAMBIO_PRECIOS].[dbo].[DAKA_PRECIOS] T7
+        ON T2.Cod_Producto = T7.ItemCode
+    INNER JOIN [CAMBIO_PRECIOS].[dbo].[AUTORIZA] T8
+        ON T7.IdDakaPrecios = T8.IdDakaPrecio
+    INNER JOIN [CAMBIO_PRECIOS].[dbo].[HABLADORES] T9
+        ON T8.IdHablador = T9.Id
+WHERE (
+          T1.[Referencia] LIKE 'LB%'
+          OR T1.[Referencia] LIKE 'LM%'
+          OR T1.[Referencia] LIKE 'LJ%'
+      )
+      AND T2.Cod_ListaPrecio = '11'
+      AND T3.[NumeroUnidades] > 0
+      AND T6.CodigoSucursal = '12'
+      AND T6.Inventario > 0
+      AND T6.CodArea = 'ALM'
+      AND T1.Referencia IN (@SAP_CODE, 'LM-00000690')
+      AND T8.FecCrea IN 
+      (
+          SELECT MAX(T0.FecCrea) FECHA
+          FROM [CAMBIO_PRECIOS].[dbo].[AUTORIZA] T0
+              INNER JOIN [CAMBIO_PRECIOS].[dbo].[DAKA_PRECIOS] T1
+                  ON T0.IdDakaPrecio = T1.IdDakaPrecios
+          WHERE T1.ItemCode IN (@SAP_CODE, 'LM-00000690') AND T0.IdHablador != 4
+          GROUP BY T1.ItemCode
+      )";
 				}
 				else if (Obtner.hablador == "P")
 				{

@@ -329,10 +329,6 @@ namespace phApp
                 string tipoLogo = "";
                 string tipoPromo = "";
 
-                // BLOQUE DE CODIGO DEL
-
-                // TXT TIPO DE PROMO
-
                 // TIPOS DE LETRA Y TAMAÑO
                 iTextSharp.text.Font Arial = FontFactory.GetFont("Arial", 12);
                 iTextSharp.text.Font ArialP = FontFactory.GetFont("Arial", 10);
@@ -351,23 +347,29 @@ namespace phApp
 
                 // Para el codigo de barras
                 string codigoBarras = "";
-
+                //int counter = 0;
                 // HABLADORES G
                 int contBarraProcesos = 0;
                 foreach (var dato in lista) // lista
                 {
-					// PROMO
-					if (dato.idPromo == "1,0000")
+                    // BLOQUE DE CODIGO DEL
+                    // TXT TIPO DE PROMO
+                    //MessageBox.Show(dato.idPromo);
+                    //counter++;
+                    //MessageBox.Show(counter.ToString());
+
+                    // PROMO
+                    if (dato.idPromo == "1")
 					{
 						// DE ESTE INDICE DEPENDE TODA LA PROMO
 						//MessageBox.Show("PROMO ACTUAL");
                         Obtner.valorLogo = 4;
-					} else if(dato.idPromo == "2,000")
+					} else if(dato.idPromo == "2")
                     {
 						//DE ESTE INDICE DEPENDE TODA LA PROMO
 						//MessageBox.Show("SE FELIZ CON .99");
 						Obtner.valorLogo = 3;
-					} else if (dato.idPromo == "3,000")
+					} else if (dato.idPromo == "3")
 					{
 						//DE ESTE INDICE DEPENDE TODA LA PROMO
 						//MessageBox.Show("SE FELIZ CON ENTERO");
@@ -800,7 +802,8 @@ namespace phApp
 
                     contador++;
                     contBarraProcesos++;
-                }
+					Obtner.valorLogo = 0;
+				}
 
 				// REINICIAR VALORES
 				contador = 0;
@@ -912,8 +915,8 @@ namespace phApp
 				dataGridView1.Columns["Codigo_Barra"].Visible = true;
 				dataGridView1.Columns["PrecioaMostrar"].Visible = true;
 				dataGridView1.Columns["PrecioTachado"].Visible = true;
-				dataGridView1.Columns["id_prom"].Visible = true;
-				dataGridView1.Columns["nombre_promo"].Visible = true;
+                dataGridView1.Columns["id_prom"].Visible = false;
+				dataGridView1.Columns["nombre_promo"].Visible = false;
 			}
 		}
 
